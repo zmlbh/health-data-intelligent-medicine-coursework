@@ -55,7 +55,7 @@ C_GRAY = "#636363"
 C_LBLUE = "#92C5DE"
 C_LRED = "#F4A582"
 
-BASE = Path(r"C:\Users\zml\Documents\Codex\2026-09-16\ctrl-cmd-shift-p-python-create-2\homework6\7. Naive-Bayes")
+BASE = Path(__file__).resolve().parents[1]
 FIG = BASE / "review" / "render-student"
 FIG.mkdir(parents=True, exist_ok=True)
 

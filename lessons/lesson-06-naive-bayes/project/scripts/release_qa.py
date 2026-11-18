@@ -1,13 +1,16 @@
 """Execute notebooks and verify/render this lesson without external temp folders."""
 from pathlib import Path
-import argparse,json,os,subprocess,sys
+import argparse,json,os,shutil,subprocess,sys
 ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'review'
 SLUG='pbl-machine-learning-basics-naive-bayes'
-NATIVE=Path(r'C:/Users/qiuha/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin')
 
 def render():
     import win32com.client
+    poppler_bin=os.environ.get('POPPLER_BIN')
+    pdftoppm=str(Path(poppler_bin)/'pdftoppm.exe') if poppler_bin else shutil.which('pdftoppm')
+    if not pdftoppm:
+        raise RuntimeError('Install Poppler or set POPPLER_BIN to the directory containing pdftoppm.exe.')
     # An isolated hidden Word instance; never attach to or close the user's instance.
     app=win32com.client.DispatchEx('Word.Application');app.Visible=False;app.DisplayAlerts=0
     results=[]
@@ -21,8 +24,8 @@ def render():
                 doc.ExportAsFixedFormat(str(pdf),17)
                 results.append({'file':file.name,'pages':pages,'pdf':str(pdf.relative_to(ROOT))})
             finally:doc.Close(False)
-            subprocess.run([str(NATIVE/'pdftoppm.exe'),'-scale-to','1300','-png',str(pdf),str(out/'page')],check=True,capture_output=True)
-            bundled=r'C:/Users/qiuha/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+            subprocess.run([pdftoppm,'-scale-to','1300','-png',str(pdf),str(out/'page')],check=True,capture_output=True)
+            bundled=sys.executable
             extract_code="import sys,json;from pypdf import PdfReader;print(json.dumps([p.extract_text() or '' for p in PdfReader(sys.argv[1]).pages],ensure_ascii=True))"
             per_page=json.loads(subprocess.check_output([bundled,'-c',extract_code,str(pdf)],text=True))
             extracted='\n\f\n'.join(per_page)

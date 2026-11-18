@@ -4,8 +4,10 @@ import {pathToFileURL} from 'node:url';
 
 const repo=path.resolve(import.meta.dirname,'../../../..');
 const base=path.resolve(import.meta.dirname,'..');
-const runtime=process.env.CODEX_ARTIFACT_RUNTIME||'C:/Users/rongs/.cache/codex-runtimes/codex-primary-runtime/dependencies';
-const skill=process.env.CODEX_PRESENTATIONS_SKILL||'C:/Users/rongs/.codex/plugins/cache/openai-primary-runtime/presentations/26.1025.11240/skills/presentations';
+const runtime=process.env.CODEX_ARTIFACT_RUNTIME;
+const skill=process.env.CODEX_PRESENTATIONS_SKILL;
+if(!runtime) throw new Error('Set CODEX_ARTIFACT_RUNTIME to the local Artifact Tool runtime directory.');
+if(!skill) throw new Error('Set CODEX_PRESENTATIONS_SKILL to the local presentations skill directory.');
 process.env.RUNTIME_NODE_MODULES=runtime+'/node/node_modules';
 const {Presentation,PresentationFile}=await import(pathToFileURL(runtime+'/node/node_modules/@oai/artifact-tool/dist/artifact_tool.mjs').href);
 const {finalizePresentation,applyPresentationChartFont}=await import(pathToFileURL(skill+'/container_tools/artifact_tool_utils.mjs').href);

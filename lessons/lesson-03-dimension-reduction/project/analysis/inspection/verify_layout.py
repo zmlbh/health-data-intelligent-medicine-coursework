@@ -1,11 +1,12 @@
 import sys, os, docx, zipfile, re, importlib.util
+from pathlib import Path
 from collections import Counter
 from docx.oxml.ns import qn
 sys.stdout.reconfigure(encoding='utf-8')
-REPO = r'C:\Users\zml\Documents\Codex\2026-09-16\ctrl-cmd-shift-p-python-create-2'
-BASE = os.path.join(REPO, 'homework3', 'student-package', 'pbl-high-dimension-reduction-student-worksheet.docx')
-OUT = os.path.join(REPO, 'homework3', 'analysis', 'deliverable', 'pbl-high-dimension-reduction-student-worksheet-completed.docx')
-spec = importlib.util.spec_from_file_location('fw', os.path.join(REPO,'homework3','analysis','scripts','fill_worksheet.py'))
+PROJECT = Path(__file__).resolve().parents[2]
+BASE = PROJECT / 'student-package' / 'pbl-high-dimension-reduction-student-worksheet.docx'
+OUT = PROJECT / 'analysis' / 'deliverable' / 'pbl-high-dimension-reduction-student-worksheet-completed.docx'
+spec = importlib.util.spec_from_file_location('fw', PROJECT / 'analysis' / 'scripts' / 'fill_worksheet.py')
 fw = importlib.util.module_from_spec(spec); spec.loader.exec_module(fw)
 ANS = fw.ANSWERS
 a, b = docx.Document(BASE), docx.Document(OUT)

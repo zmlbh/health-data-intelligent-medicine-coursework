@@ -15,11 +15,17 @@ CODE_SUFFIXES = {".py", ".ipynb", ".mjs", ".js", ".r"}
 DATA_SUFFIXES = {".csv", ".tsv", ".json", ".data", ".dat"}
 RESULT_SUFFIXES = {".csv", ".png", ".pdf", ".docx", ".txt"}
 FORBIDDEN_PARTS = {".venv", "venv", "__pycache__", ".ipynb_checkpoints"}
+GENERATED_PARTS = FORBIDDEN_PARTS | {".git", ".tmp", "review"}
 SECRET_NAMES = {".env", "id_rsa", "id_ed25519"}
 
 
-def files_under(path: Path) -> list[Path]:
-    return [item for item in path.rglob("*") if item.is_file()]
+def files_under(path: Path, excluded_parts: set[str] | None = None) -> list[Path]:
+    excluded_parts = excluded_parts or set()
+    return [
+        item
+        for item in path.rglob("*")
+        if item.is_file() and not excluded_parts.intersection(item.relative_to(path).parts)
+    ]
 
 
 def contains_result(path: Path, files: list[Path]) -> bool:
@@ -36,11 +42,16 @@ def main() -> int:
     problems: list[str] = []
 
     for lesson in sorted(path for path in LESSONS.iterdir() if path.is_dir()):
-        files = files_under(lesson)
-        assignment_files = files_under(lesson / "assignment") if (lesson / "assignment").exists() else []
+        files = files_under(lesson, GENERATED_PARTS)
+        assignment_files = (
+            files_under(lesson / "assignment", GENERATED_PARTS)
+            if (lesson / "assignment").exists()
+            else []
+        )
         code_files = [file for file in files if file.suffix.lower() in CODE_SUFFIXES]
         data_files = [file for file in files if file.suffix.lower() in DATA_SUFFIXES]
         has_readme = (lesson / "project" / "README.md").exists() or lesson.name.startswith("lesson-01")
+        has_ai_record = (lesson / "ai-records" / "README.md").exists()
         has_result = (
             contains_result(lesson, files)
             or bool(assignment_files)
@@ -59,12 +70,13 @@ def main() -> int:
                 "code_files": str(len(code_files)),
                 "data_files": str(len(data_files)),
                 "has_readme": "yes" if has_readme else "no",
+                "ai_record": "yes" if has_ai_record else "no",
                 "has_result": "yes" if has_result else "no",
-                "status": "reviewable" if has_readme and has_result else "needs-review",
+                "status": "reviewable" if has_readme and has_ai_record and has_result else "needs-review",
             }
         )
 
-    for file in files_under(ROOT):
+    for file in files_under(ROOT, {".git"}):
         relative = file.relative_to(ROOT)
         if FORBIDDEN_PARTS.intersection(relative.parts):
             problems.append(f"forbidden generated path: {relative}")
@@ -77,11 +89,12 @@ def main() -> int:
         writer.writeheader()
         writer.writerows(rows)
 
-    print("lesson, assignment, code, data, README, result, status")
+    print("lesson, assignment, code, data, README, AI record, result, status")
     for row in rows:
         print(
             f"{row['lesson']}, {row['assignment_files']}, {row['code_files']}, "
-            f"{row['data_files']}, {row['has_readme']}, {row['has_result']}, {row['status']}"
+            f"{row['data_files']}, {row['has_readme']}, {row['ai_record']}, "
+            f"{row['has_result']}, {row['status']}"
         )
     print(f"\nGenerated: {OUTPUT.relative_to(ROOT)}")
 

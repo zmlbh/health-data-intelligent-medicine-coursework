@@ -1,8 +1,9 @@
 import sys, os, docx
+from pathlib import Path
 from docx.oxml.ns import qn
 sys.stdout.reconfigure(encoding='utf-8')
-REPO = r'C:\Users\zml\Documents\Codex\2026-09-16\ctrl-cmd-shift-p-python-create-2'
-SRC = os.path.join(REPO, 'homework3', 'student-package', 'pbl-high-dimension-reduction-student-worksheet.docx')
+PROJECT = Path(__file__).resolve().parents[2]
+SRC = PROJECT / 'student-package' / 'pbl-high-dimension-reduction-student-worksheet.docx'
 d = docx.Document(SRC)
 from collections import Counter
 jc = Counter(); va = Counter(); ind = Counter()

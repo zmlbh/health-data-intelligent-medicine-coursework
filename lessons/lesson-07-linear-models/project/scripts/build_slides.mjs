@@ -3,10 +3,12 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 const repo=path.resolve(import.meta.dirname,'../../../..');
 const base=path.resolve(import.meta.dirname,'..');
-const runtime=process.env.CODEX_ARTIFACT_RUNTIME||'C:/Users/rongs/.cache/codex-runtimes/codex-primary-runtime/dependencies';
+const runtime=process.env.CODEX_ARTIFACT_RUNTIME;
+if(!runtime) throw new Error('Set CODEX_ARTIFACT_RUNTIME to the local Artifact Tool runtime directory.');
 process.env.RUNTIME_NODE_MODULES=runtime+'/node/node_modules';
 const {Presentation,PresentationFile}=await import(pathToFileURL(runtime+'/node/node_modules/@oai/artifact-tool/dist/artifact_tool.mjs').href);
-const skill='C:/Users/rongs/.codex/plugins/cache/openai-primary-runtime/presentations/26.1013.11914/skills/presentations';
+const skill=process.env.CODEX_PRESENTATIONS_SKILL;
+if(!skill) throw new Error('Set CODEX_PRESENTATIONS_SKILL to the local presentations skill directory.');
 const build=repo+'/.tmp/linear-models/slides'; await fs.mkdir(build,{recursive:true}); await fs.mkdir(base+'/slides',{recursive:true});
 const deck=Presentation.create({slideSize:{width:1280,height:720}}); const font='Microsoft YaHei',ink='#193638',teal='#087C77',muted='#52686A',orange='#A94F1C',paper='#FAFBF8'; deck.theme.defaultFont=font;
 const S=[

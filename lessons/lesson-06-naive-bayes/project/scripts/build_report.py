@@ -8,9 +8,9 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-BASE = Path(r"C:\Users\zml\Documents\Codex\2026-09-16\ctrl-cmd-shift-p-python-create-2\homework6\7. Naive-Bayes")
+BASE = Path(__file__).resolve().parents[1]
 FIG = BASE / "review" / "render-student"
-OUT = Path(r"C:\Users\zml\Desktop\homework6_朴素贝叶斯PBL报告.docx")
+OUT = BASE / "homework6_朴素贝叶斯PBL报告.docx"
 
 with open(FIG/"results.json", encoding="utf-8") as f:
     R = json.load(f)

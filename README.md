@@ -23,16 +23,38 @@ python tools/audit_repository.py
 
 ```text
 course-materials/                         # PBL 要求、评分标准、课程计划
+  pbl-instruction.pptx                    # PBL 总体说明
+  PBL评分标准表.docx                      # 评分标准
+  plan.docx                               # 课程计划
 lessons/
   lesson-01-ai-and-git/                   # 课程介绍与 Git/GitHub
+    README.md / slides/ / ai-records/
   lesson-02-data-types/                   # 变量类型与数据类型
+    assignment/ / project/ / ai-records/
+    project/{assets,notebook,scripts}
   lesson-03-dimension-reduction/          # 高维数据、PCA 与 UMAP
+    project/ / ai-records/                # 无正式提交版
+    project/{analysis,student-package}
   lesson-04-hypothesis-testing/           # 统计检验与假设设计
+    assignment/ / project/ / ai-records/
+    project/{data,analysis.py,analysis_results.txt}
   lesson-05-multiple-testing/             # 多重检验校正
+    assignment/ / project/ / ai-records/
+    project/{data,notebooks}
   lesson-06-naive-bayes/                  # 机器学习基础与朴素贝叶斯
+    assignment/ / project/ / ai-records/
+    project/{data,assets,notebook,notebooks,scripts}
   lesson-07-linear-models/                # 线性模型、LDA 与 Logistic Regression
+    assignment/ / project/ / ai-records/
+    project/{data,assets,notebook,notebooks,scripts,论文交付}
   lesson-08-svm/                          # SVM 与 Margin
+    assignment/ / project/ / ai-records/
+    project/{data,assets,notebook,scripts,slides,student-release}
   lesson-09-ensemble-bootstrap/           # 集成学习与 Bootstrapping
+    assignment/ / project/ / ai-records/
+    project/{data,data-ctg,scripts,slides,submission_materials}
+tools/                                    # 仓库自动验收代码
+outputs/                                  # 自动生成的验收表
 AI_CONVERSATION_RECORDS.md                # 历史 AI 对话记录的补充说明
 REPRODUCIBILITY.md                        # 环境与复现命令
 EVIDENCE_MAP.md                           # 作业、数据、代码和输出的对应关系

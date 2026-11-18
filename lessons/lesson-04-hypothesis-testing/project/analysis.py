@@ -18,7 +18,7 @@ import numpy as np
 from scipy import stats
 
 HERE = Path(__file__).resolve().parent
-DATA = HERE.parent / "package" / "data" / "heart-disease-hypothesis.csv"
+DATA = HERE / "data" / "heart-disease-hypothesis.csv"
 OUT = HERE / "analysis_results.txt"
 
 lines = []
