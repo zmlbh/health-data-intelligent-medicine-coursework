@@ -13,7 +13,7 @@
 
 每个课次优先使用其 `project/requirements.txt`。不同课次依赖范围不同，最稳妥的方式是分别建立虚拟环境，避免包版本互相影响。
 
-已实际验证的配置：2026-11-18 在 Windows 64 位、Python 3.12、NumPy 2.5.5、SciPy 1.18.1 下成功执行第 4 课 `analysis.py`，并重新生成 `analysis_results.txt`。其他课次的完整 notebook 尚未在同一台干净电脑上逐一重跑，不能把保存的输出当作跨环境复现证明。
+已实际验证的配置：2026-11-18 在 Windows 64 位、Python 3.12、NumPy 2.5.5、SciPy 1.18.1 下成功执行第 4 课 `analysis.py`，并重新生成 `analysis_results.txt`；第 6 课 `scripts/full_analysis.py` 也已从仓库相对路径成功运行，读取 72 条训练、24 条验证和 24 条测试记录并生成 8 张图。其他课次的完整 notebook 尚未在同一台干净电脑上逐一重跑，不能把保存的输出当作跨环境复现证明。
 
 ## 2 下载并检查仓库
 
