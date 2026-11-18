@@ -1,0 +1,1265 @@
+{
+  "status": "approved and implemented 2026-09-17",
+  "study_goal": "建立生命科学研究所需的预测建模共同语言，并用可计算的朴素贝叶斯案例整合模型、训练、损失、评价与假设。",
+  "learning_objectives": [
+    {
+      "id": "LO1",
+      "source_excerpt": "什么是数据模型？；用数学函数描述输入和输出之间的关系",
+      "observable_outcome": "为六症状输入、类别概率、阈值输出分别写出数学对象，并说明关联检验与新记录预测的区别。"
+    },
+    {
+      "id": "LO2",
+      "source_excerpt": "数据输入；特征；标签",
+      "observable_outcome": "从八列数据中选出六个输入和主标签，说明第二个疾病标签为何不自动成为可用输入。"
+    },
+    {
+      "id": "LO3",
+      "source_excerpt": "什么是训练、预测和泛化？",
+      "observable_outcome": "给训练计数、固定参数预测、验证选择及最终测试排序，并定义每一步可读的数据。"
+    },
+    {
+      "id": "LO4",
+      "source_excerpt": "训练集；验证集；测试集；模型训练；性能评估",
+      "observable_outcome": "用72/24/24的划分表指定拟合、阈值选择和评价职责，区分行编号隔离与新输入组合。"
+    },
+    {
+      "id": "LO5",
+      "source_excerpt": "什么是损失函数？；模型预测与真实标签之间的差距",
+      "observable_outcome": "对四条相同标签、两组概率计算逐样本损失和平均损失，解释相同accuracy为何不足以比较概率。"
+    },
+    {
+      "id": "LO6",
+      "source_excerpt": "常见损失：cross-entropy, mean squared error",
+      "observable_outcome": "计算二分类cross-entropy与连续体温预测的MSE，写出两者预测对象和单位差异。"
+    },
+    {
+      "id": "LO7",
+      "source_excerpt": "accuracy；sensitivity；specificity；precision；recall；F1-score",
+      "observable_outcome": "从非完美混淆矩阵算出六个命名指标，辨别recall与sensitivity同义、precision分母不同。"
+    },
+    {
+      "id": "LO8",
+      "source_excerpt": "ROC-AUC；PR-AUC",
+      "observable_outcome": "在给定ROC/PR图上定位两阈值，解释曲线面积不能给出阈值或概率校准；识别梯形PR面积与AP的命名。"
+    },
+    {
+      "id": "LO9",
+      "source_excerpt": "calibration",
+      "observable_outcome": "比较小样本分箱的平均预测概率与实际阳性频率，结合每箱样本数写出概率解释边界。"
+    },
+    {
+      "id": "LO10",
+      "source_excerpt": "基于 Bayes theorem",
+      "observable_outcome": "从训练计数估计先验与条件概率，包含症状为0的项，并归一化两个类别分数得到后验。"
+    },
+    {
+      "id": "LO11",
+      "source_excerpt": "“朴素”假设：特征之间条件独立",
+      "observable_outcome": "在疾病类别内比较联合频率与边缘频率乘积，并解释人工复制症状后概率变化。"
+    },
+    {
+      "id": "LO12",
+      "source_excerpt": "适合文本分类、简单医学分类任务",
+      "observable_outcome": "对六症状和生物医学摘要关键词是否出现两种输入说明Bernoulli表示适配；区分出现指示与次数。"
+    },
+    {
+      "id": "LO13",
+      "source_excerpt": "简单、快速、可解释；条件独立假设常常不完全成立",
+      "observable_outcome": "用训练计数和重复症状证据各解释一项NB优点和一项局限，避免把可追溯计算说成因果解释。"
+    },
+    {
+      "id": "LO14",
+      "source_excerpt": "课堂练习用一个小型症状数据集训练朴素贝叶斯模型：输入：症状特征；输出：是否患病；计算 sensitivity 和 specificity",
+      "observable_outcome": "在Phase 3课堂用本数据的训练计数拟合二症状NB，计算新组合预测，并由给定逐例结果汇总sensitivity和specificity。"
+    },
+    {
+      "id": "LO15",
+      "source_excerpt": "作业 解释为什么医学诊断模型不能只看 accuracy。",
+      "observable_outcome": "利用Q1—Q6形成一份含任务、训练、损失、指标、假设、边界的研究方案；用明确标为假设的1%患病率场景作数值反例。"
+    }
+  ],
+  "concept_clusters": [
+    {
+      "id": "C1",
+      "name": "任务与输入输出",
+      "objective_ids": [
+        "LO1",
+        "LO2"
+      ],
+      "concepts": [
+        "变量",
+        "数据模型",
+        "统计检验与预测"
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "训练与评价流程",
+      "objective_ids": [
+        "LO3",
+        "LO4"
+      ],
+      "concepts": [
+        "训练",
+        "预测",
+        "泛化",
+        "三种数据集"
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "朴素贝叶斯模型",
+      "objective_ids": [
+        "LO10",
+        "LO12",
+        "LO14"
+      ],
+      "concepts": [
+        "Bayes",
+        "先验",
+        "似然",
+        "后验",
+        "条件独立",
+        "二元特征",
+        "加一平滑"
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "损失与预测对象",
+      "objective_ids": [
+        "LO5",
+        "LO6"
+      ],
+      "concepts": [
+        "cross-entropy",
+        "MSE",
+        "单例损失与平均损失",
+        "训练目标与评价"
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "指标、阈值与概率",
+      "objective_ids": [
+        "LO7",
+        "LO8",
+        "LO9"
+      ],
+      "concepts": [
+        "accuracy",
+        "sensitivity/recall",
+        "specificity",
+        "precision",
+        "F1",
+        "ROC-AUC",
+        "PR-AUC",
+        "calibration"
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "假设、泛化与最终用途",
+      "objective_ids": [
+        "LO11",
+        "LO13",
+        "LO15"
+      ],
+      "concepts": [
+        "条件独立",
+        "简单快速可解释",
+        "泛化边界",
+        "患病率与precision"
+      ]
+    }
+  ],
+  "decision_problem": "研究组要把六症状到膀胱炎症标签的模型用于下一轮离线方法比较；你需提交完整、可复核的训练与评价方案，并在A保留冻结基线、B修改后冻结、C证据不足暂缓中作决定，说明哪些数据来源、假设或评价发现会使方案停止或改变。",
+  "driving_question": "研究组要把六症状到膀胱炎症标签的模型用于下一轮离线方法比较；你需提交完整、可复核的训练与评价方案，并在A保留冻结基线、B修改后冻结、C证据不足暂缓中作决定，说明哪些数据来源、假设或评价发现会使方案停止或改变。",
+  "entry_type": "direct_problem",
+  "problem_architecture": {
+    "overarching_problem": "研究组要把六症状到膀胱炎症标签的模型用于下一轮离线方法比较；你需提交完整、可复核的训练与评价方案，并在A保留冻结基线、B修改后冻结、C证据不足暂缓中作决定，说明哪些数据来源、假设或评价发现会使方案停止或改变。",
+    "downstream_use": "由研究组用于下一轮离线方法比较和研究方案评审；不进入患者照护。",
+    "decision_options": [
+      "A：把六症状NB和0.50阈值作为下一轮方法比较的冻结基线；不新增病例特征或先验校正。",
+      "B：先修改症状表示、模型设置或验证阈值中的至少一项，再冻结新基线；须逐项给出修改依据。",
+      "C：暂缓提交任何模型，先补齐一项会改变A/B选择的数据或评价证据。"
+    ],
+    "inquiry_questions": [
+      {
+        "id": "Q1",
+        "question": "表 A1 的六症状如何成为模型输入，两个疾病标签中哪一个是本次要预测的结果？",
+        "objective_ids": [
+          "LO1",
+          "LO2"
+        ],
+        "concept_ids": [
+          "C1"
+        ],
+        "required_learning": [
+          "变量",
+          "数据模型",
+          "统计检验与预测"
+        ],
+        "student_action": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+        "evidence_ids": [
+          "表 A1",
+          "表 A2"
+        ],
+        "release_after": "A",
+        "minutes": 10,
+        "tracker_row": "第2行：任务与输入输出",
+        "student_output": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+        "contribution_to_synthesis": "界定预测对象、可用输入及结论对象。"
+      },
+      {
+        "id": "Q2",
+        "question": "表 A3 的72/24/24条记录应怎样分配拟合、阈值选择与最终评价职责？",
+        "objective_ids": [
+          "LO3",
+          "LO4"
+        ],
+        "concept_ids": [
+          "C2"
+        ],
+        "required_learning": [
+          "训练",
+          "预测",
+          "泛化",
+          "三种数据集"
+        ],
+        "student_action": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+        "evidence_ids": [
+          "表 A3"
+        ],
+        "release_after": "A",
+        "minutes": 10,
+        "tracker_row": "第3行：训练与评价流程",
+        "student_output": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+        "contribution_to_synthesis": "规定可复现流程与测试解封条件。"
+      },
+      {
+        "id": "Q3",
+        "question": "用表 B1 的训练计数，怎样得到表 B2 指定症状组合的膀胱炎症预测？",
+        "objective_ids": [
+          "LO10",
+          "LO12",
+          "LO14"
+        ],
+        "concept_ids": [
+          "C3"
+        ],
+        "required_learning": [
+          "Bayes",
+          "先验",
+          "似然",
+          "后验",
+          "条件独立",
+          "二元特征",
+          "加一平滑"
+        ],
+        "student_action": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+        "evidence_ids": [
+          "表 B1",
+          "表 B2",
+          "表 B3"
+        ],
+        "release_after": "B",
+        "minutes": 20,
+        "tracker_row": "第4行：朴素贝叶斯模型",
+        "student_output": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+        "contribution_to_synthesis": "解释模型从什么数据学到什么及使用假设。"
+      },
+      {
+        "id": "Q4",
+        "question": "表 B4 中两模型判对同样多时，概率损失为何不同；表 B5 的体温误差该如何计量？",
+        "objective_ids": [
+          "LO5",
+          "LO6"
+        ],
+        "concept_ids": [
+          "C4"
+        ],
+        "required_learning": [
+          "cross-entropy",
+          "MSE",
+          "单例损失与平均损失",
+          "训练目标与评价"
+        ],
+        "student_action": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+        "evidence_ids": [
+          "表 B4",
+          "表 B5"
+        ],
+        "release_after": "B",
+        "minutes": 20,
+        "tracker_row": "第5行：损失与预测对象",
+        "student_output": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+        "contribution_to_synthesis": "选择适当的概率评价量并说明NB参数估计方式。"
+      },
+      {
+        "id": "Q5",
+        "question": "表 C1 的阈值变化、图 C2 的排序和表 C3 的概率频率，分别允许对这个模型说什么？",
+        "objective_ids": [
+          "LO7",
+          "LO8",
+          "LO9"
+        ],
+        "concept_ids": [
+          "C5"
+        ],
+        "required_learning": [
+          "accuracy",
+          "sensitivity/recall",
+          "specificity",
+          "precision",
+          "F1",
+          "ROC-AUC",
+          "PR-AUC",
+          "calibration"
+        ],
+        "student_action": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+        "evidence_ids": [
+          "表 C1",
+          "图 C2",
+          "表 C3"
+        ],
+        "release_after": "C",
+        "minutes": 26,
+        "tracker_row": "第6行：指标、阈值与概率",
+        "student_output": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+        "contribution_to_synthesis": "提出有依据的阈值和分类、排序、概率三类报告方案。"
+      },
+      {
+        "id": "Q6",
+        "question": "表 D1—D3 的类别内依赖、重复证据和测试组合覆盖，如何改变你交给研究组的方案？",
+        "objective_ids": [
+          "LO11",
+          "LO13",
+          "LO15"
+        ],
+        "concept_ids": [
+          "C6"
+        ],
+        "required_learning": [
+          "条件独立",
+          "简单快速可解释",
+          "泛化边界",
+          "患病率与precision"
+        ],
+        "student_action": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+        "evidence_ids": [
+          "表 D1",
+          "表 D2",
+          "表 D3",
+          "表 D4"
+        ],
+        "release_after": "D",
+        "minutes": 34,
+        "tracker_row": "第7行：假设、泛化与最终用途",
+        "student_output": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+        "contribution_to_synthesis": "从追踪表全部模块作最终方案选择，完成原大纲accuracy作业。"
+      }
+    ],
+    "stop_conditions": [
+      "不能说明训练参数来自哪些记录时，停止报告测试性能并重建流程。",
+      "只有行编号隔离而输入组合全部见过时，撤回新症状组合泛化声明。",
+      "若将相关或重复输入当新证据，暂停个体风险解释并重新核验概率。",
+      "若阈值只按test选择，停止独立测试声明并另收未参与选择的数据。"
+    ]
+  },
+  "course_coverage": [
+    {
+      "objective_id": "LO1",
+      "source_excerpt": "什么是数据模型？；用数学函数描述输入和输出之间的关系",
+      "observable_outcome": "为六症状输入、类别概率、阈值输出分别写出数学对象，并说明关联检验与新记录预测的区别。",
+      "concept_cluster_ids": [
+        "C1"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "analysis_ids": [
+        "AN1"
+      ],
+      "required_learning": [
+        "变量",
+        "数据模型",
+        "统计检验与预测"
+      ],
+      "student_action": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+      "analysis_method": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+      "evidence_ids": [
+        "表 A1",
+        "表 A2"
+      ],
+      "packet": "A",
+      "student_output": "为六症状输入、类别概率、阈值输出分别写出数学对象，并说明关联检验与新记录预测的区别。",
+      "worksheet_location": "Phase 2 / Q1",
+      "synthesis_use": "界定预测对象、可用输入及结论对象。",
+      "assessment_evidence": "为六症状输入、类别概率、阈值输出分别写出数学对象，并说明关联检验与新记录预测的区别。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO2",
+      "source_excerpt": "数据输入；特征；标签",
+      "observable_outcome": "从八列数据中选出六个输入和主标签，说明第二个疾病标签为何不自动成为可用输入。",
+      "concept_cluster_ids": [
+        "C1"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "analysis_ids": [
+        "AN1"
+      ],
+      "required_learning": [
+        "变量",
+        "数据模型",
+        "统计检验与预测"
+      ],
+      "student_action": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+      "analysis_method": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+      "evidence_ids": [
+        "表 A1",
+        "表 A2"
+      ],
+      "packet": "A",
+      "student_output": "从八列数据中选出六个输入和主标签，说明第二个疾病标签为何不自动成为可用输入。",
+      "worksheet_location": "Phase 2 / Q1",
+      "synthesis_use": "界定预测对象、可用输入及结论对象。",
+      "assessment_evidence": "从八列数据中选出六个输入和主标签，说明第二个疾病标签为何不自动成为可用输入。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO3",
+      "source_excerpt": "什么是训练、预测和泛化？",
+      "observable_outcome": "给训练计数、固定参数预测、验证选择及最终测试排序，并定义每一步可读的数据。",
+      "concept_cluster_ids": [
+        "C2"
+      ],
+      "inquiry_question_ids": [
+        "Q2"
+      ],
+      "analysis_ids": [
+        "AN2"
+      ],
+      "required_learning": [
+        "训练",
+        "预测",
+        "泛化",
+        "三种数据集"
+      ],
+      "student_action": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+      "analysis_method": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+      "evidence_ids": [
+        "表 A3"
+      ],
+      "packet": "A",
+      "student_output": "给训练计数、固定参数预测、验证选择及最终测试排序，并定义每一步可读的数据。",
+      "worksheet_location": "Phase 2 / Q2",
+      "synthesis_use": "规定可复现流程与测试解封条件。",
+      "assessment_evidence": "给训练计数、固定参数预测、验证选择及最终测试排序，并定义每一步可读的数据。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO4",
+      "source_excerpt": "训练集；验证集；测试集；模型训练；性能评估",
+      "observable_outcome": "用72/24/24的划分表指定拟合、阈值选择和评价职责，区分行编号隔离与新输入组合。",
+      "concept_cluster_ids": [
+        "C2"
+      ],
+      "inquiry_question_ids": [
+        "Q2"
+      ],
+      "analysis_ids": [
+        "AN2"
+      ],
+      "required_learning": [
+        "训练",
+        "预测",
+        "泛化",
+        "三种数据集"
+      ],
+      "student_action": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+      "analysis_method": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+      "evidence_ids": [
+        "表 A3"
+      ],
+      "packet": "A",
+      "student_output": "用72/24/24的划分表指定拟合、阈值选择和评价职责，区分行编号隔离与新输入组合。",
+      "worksheet_location": "Phase 2 / Q2",
+      "synthesis_use": "规定可复现流程与测试解封条件。",
+      "assessment_evidence": "用72/24/24的划分表指定拟合、阈值选择和评价职责，区分行编号隔离与新输入组合。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO5",
+      "source_excerpt": "什么是损失函数？；模型预测与真实标签之间的差距",
+      "observable_outcome": "对四条相同标签、两组概率计算逐样本损失和平均损失，解释相同accuracy为何不足以比较概率。",
+      "concept_cluster_ids": [
+        "C4"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "analysis_ids": [
+        "AN4"
+      ],
+      "required_learning": [
+        "cross-entropy",
+        "MSE",
+        "单例损失与平均损失",
+        "训练目标与评价"
+      ],
+      "student_action": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+      "analysis_method": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+      "evidence_ids": [
+        "表 B4",
+        "表 B5"
+      ],
+      "packet": "B",
+      "student_output": "对四条相同标签、两组概率计算逐样本损失和平均损失，解释相同accuracy为何不足以比较概率。",
+      "worksheet_location": "Phase 2 / Q4",
+      "synthesis_use": "选择适当的概率评价量并说明NB参数估计方式。",
+      "assessment_evidence": "对四条相同标签、两组概率计算逐样本损失和平均损失，解释相同accuracy为何不足以比较概率。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO6",
+      "source_excerpt": "常见损失：cross-entropy, mean squared error",
+      "observable_outcome": "计算二分类cross-entropy与连续体温预测的MSE，写出两者预测对象和单位差异。",
+      "concept_cluster_ids": [
+        "C4"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "analysis_ids": [
+        "AN4"
+      ],
+      "required_learning": [
+        "cross-entropy",
+        "MSE",
+        "单例损失与平均损失",
+        "训练目标与评价"
+      ],
+      "student_action": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+      "analysis_method": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+      "evidence_ids": [
+        "表 B4",
+        "表 B5"
+      ],
+      "packet": "B",
+      "student_output": "计算二分类cross-entropy与连续体温预测的MSE，写出两者预测对象和单位差异。",
+      "worksheet_location": "Phase 2 / Q4",
+      "synthesis_use": "选择适当的概率评价量并说明NB参数估计方式。",
+      "assessment_evidence": "计算二分类cross-entropy与连续体温预测的MSE，写出两者预测对象和单位差异。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO7",
+      "source_excerpt": "accuracy；sensitivity；specificity；precision；recall；F1-score",
+      "observable_outcome": "从非完美混淆矩阵算出六个命名指标，辨别recall与sensitivity同义、precision分母不同。",
+      "concept_cluster_ids": [
+        "C5"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "analysis_ids": [
+        "AN5"
+      ],
+      "required_learning": [
+        "accuracy",
+        "sensitivity/recall",
+        "specificity",
+        "precision",
+        "F1",
+        "ROC-AUC",
+        "PR-AUC",
+        "calibration"
+      ],
+      "student_action": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "analysis_method": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "evidence_ids": [
+        "表 C1",
+        "图 C2",
+        "表 C3"
+      ],
+      "packet": "C",
+      "student_output": "从非完美混淆矩阵算出六个命名指标，辨别recall与sensitivity同义、precision分母不同。",
+      "worksheet_location": "Phase 2 / Q5",
+      "synthesis_use": "提出有依据的阈值和分类、排序、概率三类报告方案。",
+      "assessment_evidence": "从非完美混淆矩阵算出六个命名指标，辨别recall与sensitivity同义、precision分母不同。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO8",
+      "source_excerpt": "ROC-AUC；PR-AUC",
+      "observable_outcome": "在给定ROC/PR图上定位0.10阈值的ROC及PR坐标，解释曲线面积不能给出阈值或概率校准；识别梯形PR面积与AP的命名。",
+      "concept_cluster_ids": [
+        "C5"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "analysis_ids": [
+        "AN5"
+      ],
+      "required_learning": [
+        "accuracy",
+        "sensitivity/recall",
+        "specificity",
+        "precision",
+        "F1",
+        "ROC-AUC",
+        "PR-AUC",
+        "calibration"
+      ],
+      "student_action": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "analysis_method": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "evidence_ids": [
+        "表 C1",
+        "图 C2",
+        "表 C3"
+      ],
+      "packet": "C",
+      "student_output": "在给定ROC/PR图上定位两阈值，解释曲线面积不能给出阈值或概率校准；识别梯形PR面积与AP的命名。",
+      "worksheet_location": "Phase 2 / Q5",
+      "synthesis_use": "提出有依据的阈值和分类、排序、概率三类报告方案。",
+      "assessment_evidence": "在给定ROC/PR图上定位两阈值，解释曲线面积不能给出阈值或概率校准；识别梯形PR面积与AP的命名。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO9",
+      "source_excerpt": "calibration",
+      "observable_outcome": "比较小样本分箱的平均预测概率与实际阳性频率，结合每箱样本数写出概率解释边界。",
+      "concept_cluster_ids": [
+        "C5"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "analysis_ids": [
+        "AN5"
+      ],
+      "required_learning": [
+        "accuracy",
+        "sensitivity/recall",
+        "specificity",
+        "precision",
+        "F1",
+        "ROC-AUC",
+        "PR-AUC",
+        "calibration"
+      ],
+      "student_action": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "analysis_method": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "evidence_ids": [
+        "表 C1",
+        "图 C2",
+        "表 C3"
+      ],
+      "packet": "C",
+      "student_output": "比较小样本分箱的平均预测概率与实际阳性频率，结合每箱样本数写出概率解释边界。",
+      "worksheet_location": "Phase 2 / Q5",
+      "synthesis_use": "提出有依据的阈值和分类、排序、概率三类报告方案。",
+      "assessment_evidence": "比较小样本分箱的平均预测概率与实际阳性频率，结合每箱样本数写出概率解释边界。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO10",
+      "source_excerpt": "基于 Bayes theorem",
+      "observable_outcome": "从训练计数估计先验与条件概率，包含症状为0的项，并归一化两个类别分数得到后验。",
+      "concept_cluster_ids": [
+        "C3"
+      ],
+      "inquiry_question_ids": [
+        "Q3"
+      ],
+      "analysis_ids": [
+        "AN3"
+      ],
+      "required_learning": [
+        "Bayes",
+        "先验",
+        "似然",
+        "后验",
+        "条件独立",
+        "二元特征",
+        "加一平滑"
+      ],
+      "student_action": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+      "analysis_method": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+      "evidence_ids": [
+        "表 B1",
+        "表 B2",
+        "表 B3"
+      ],
+      "packet": "B",
+      "student_output": "从训练计数估计先验与条件概率，包含症状为0的项，并归一化两个类别分数得到后验。",
+      "worksheet_location": "Phase 2 / Q3",
+      "synthesis_use": "解释模型从什么数据学到什么及使用假设。",
+      "assessment_evidence": "从训练计数估计先验与条件概率，包含症状为0的项，并归一化两个类别分数得到后验。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO11",
+      "source_excerpt": "“朴素”假设：特征之间条件独立",
+      "observable_outcome": "在疾病类别内比较联合频率与边缘频率乘积，并解释人工复制症状后概率变化。",
+      "concept_cluster_ids": [
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "analysis_ids": [
+        "AN6"
+      ],
+      "required_learning": [
+        "条件独立",
+        "简单快速可解释",
+        "泛化边界",
+        "患病率与precision"
+      ],
+      "student_action": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "analysis_method": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "evidence_ids": [
+        "表 D1",
+        "表 D2",
+        "表 D3",
+        "表 D4"
+      ],
+      "packet": "D",
+      "student_output": "在疾病类别内比较联合频率与边缘频率乘积，并解释人工复制症状后概率变化。",
+      "worksheet_location": "Phase 2 / Q6",
+      "synthesis_use": "从追踪表全部模块作最终方案选择，完成原大纲accuracy作业。",
+      "assessment_evidence": "在疾病类别内比较联合频率与边缘频率乘积，并解释人工复制症状后概率变化。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO12",
+      "source_excerpt": "适合文本分类、简单医学分类任务",
+      "observable_outcome": "对六症状和生物医学摘要关键词是否出现两种输入说明Bernoulli表示适配；区分出现指示与次数。",
+      "concept_cluster_ids": [
+        "C3"
+      ],
+      "inquiry_question_ids": [
+        "Q3"
+      ],
+      "analysis_ids": [
+        "AN3"
+      ],
+      "required_learning": [
+        "Bayes",
+        "先验",
+        "似然",
+        "后验",
+        "条件独立",
+        "二元特征",
+        "加一平滑"
+      ],
+      "student_action": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+      "analysis_method": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+      "evidence_ids": [
+        "表 B1",
+        "表 B2",
+        "表 B3"
+      ],
+      "packet": "B",
+      "student_output": "对六症状和生物医学摘要关键词是否出现两种输入说明Bernoulli表示适配；区分出现指示与次数。",
+      "worksheet_location": "Phase 2 / Q3",
+      "synthesis_use": "解释模型从什么数据学到什么及使用假设。",
+      "assessment_evidence": "对六症状和生物医学摘要关键词是否出现两种输入说明Bernoulli表示适配；区分出现指示与次数。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO13",
+      "source_excerpt": "简单、快速、可解释；条件独立假设常常不完全成立",
+      "observable_outcome": "用训练计数和重复症状证据各解释一项NB优点和一项局限，避免把可追溯计算说成因果解释。",
+      "concept_cluster_ids": [
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "analysis_ids": [
+        "AN6"
+      ],
+      "required_learning": [
+        "条件独立",
+        "简单快速可解释",
+        "泛化边界",
+        "患病率与precision"
+      ],
+      "student_action": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "analysis_method": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "evidence_ids": [
+        "表 D1",
+        "表 D2",
+        "表 D3",
+        "表 D4"
+      ],
+      "packet": "D",
+      "student_output": "用训练计数和重复症状证据各解释一项NB优点和一项局限，避免把可追溯计算说成因果解释。",
+      "worksheet_location": "Phase 2 / Q6",
+      "synthesis_use": "从追踪表全部模块作最终方案选择，完成原大纲accuracy作业。",
+      "assessment_evidence": "用训练计数和重复症状证据各解释一项NB优点和一项局限，避免把可追溯计算说成因果解释。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO14",
+      "source_excerpt": "课堂练习用一个小型症状数据集训练朴素贝叶斯模型：输入：症状特征；输出：是否患病；计算 sensitivity 和 specificity",
+      "observable_outcome": "在Phase 3课堂用本数据的训练计数拟合二症状NB，计算新组合预测，并由给定逐例结果汇总sensitivity和specificity。",
+      "concept_cluster_ids": [
+        "C3"
+      ],
+      "inquiry_question_ids": [
+        "Q3"
+      ],
+      "analysis_ids": [
+        "AN3"
+      ],
+      "required_learning": [
+        "Bayes",
+        "先验",
+        "似然",
+        "后验",
+        "条件独立",
+        "二元特征",
+        "加一平滑"
+      ],
+      "student_action": "课堂训练①至③：用表 B1两行计数估计二症状NB参数，计算四种组合的后验，并按表 B3记录数加权汇总TP、FN、FP、TN及sensitivity与specificity。",
+      "analysis_method": "课堂训练①至③：用表 B1两行计数估计二症状NB参数，计算四种组合的后验，并按表 B3记录数加权汇总TP、FN、FP、TN及sensitivity与specificity。",
+      "evidence_ids": [
+        "表 B1",
+        "表 B2",
+        "表 B3"
+      ],
+      "packet": "B",
+      "student_output": "在Phase 3课堂用本数据的训练计数拟合二症状NB，计算新组合预测，并由给定逐例结果汇总sensitivity和specificity。",
+      "worksheet_location": "Phase 3 / 课堂训练①至③",
+      "synthesis_use": "解释模型从什么数据学到什么及使用假设。",
+      "assessment_evidence": "在Phase 3课堂用本数据的训练计数拟合二症状NB，计算新组合预测，并由给定逐例结果汇总sensitivity和specificity。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    },
+    {
+      "objective_id": "LO15",
+      "source_excerpt": "作业 解释为什么医学诊断模型不能只看 accuracy。",
+      "observable_outcome": "利用Q1—Q6形成一份含任务、训练、损失、指标、假设、边界的研究方案；用明确标为假设的1%患病率场景作数值反例。",
+      "concept_cluster_ids": [
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "analysis_ids": [
+        "AN6"
+      ],
+      "required_learning": [
+        "条件独立",
+        "简单快速可解释",
+        "泛化边界",
+        "患病率与precision"
+      ],
+      "student_action": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "analysis_method": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "evidence_ids": [
+        "表 D1",
+        "表 D2",
+        "表 D3",
+        "表 D4"
+      ],
+      "packet": "D",
+      "student_output": "利用Q1—Q6形成一份含任务、训练、损失、指标、假设、边界的研究方案；用明确标为假设的1%患病率场景作数值反例。",
+      "worksheet_location": "Phase 2 / Q6作业原题（计算表与作答框）及课外综合",
+      "synthesis_use": "从追踪表全部模块作最终方案选择，完成原大纲accuracy作业。",
+      "assessment_evidence": "利用Q1—Q6形成一份含任务、训练、损失、指标、假设、边界的研究方案；用明确标为假设的1%患病率场景作数值反例。",
+      "applicability": "第7讲大纲明确要求",
+      "interpretation_boundary": "只针对提供的来源和数据，不外推因果或临床效度。"
+    }
+  ],
+  "data_context": {
+    "dataset_name": "UCI Acute Inflammations",
+    "source": "https://doi.org/10.24432/C5V59S",
+    "license": "CC BY 4.0",
+    "task": "教学二分类",
+    "observation_unit": "医学专家为测试专家系统设计的潜在病例症状与决策记录；无法从元数据确认是独立患者抽样。",
+    "sample_count": 120,
+    "feature_count": 6,
+    "missing_cells": 0,
+    "variable_roles": {
+      "features": [
+        "temperature",
+        "nausea",
+        "lumbar pain",
+        "urine pushing",
+        "micturition pains",
+        "burning urethra"
+      ],
+      "labels": [
+        "bladder inflammation",
+        "nephritis"
+      ]
+    },
+    "target": {
+      "name": "bladder inflammation",
+      "positive": 59,
+      "negative": 61
+    },
+    "grouping_fields": []
+  },
+  "analyses": [
+    {
+      "id": "AN1",
+      "objective_ids": [
+        "LO1",
+        "LO2"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "question": "表 A1 的六症状如何成为模型输入，两个疾病标签中哪一个是本次要预测的结果？",
+      "domain": "data_structure",
+      "method": "按表 S1的二值表示写出表 A1第61条记录的X与Y，说明fθ(X)与阈值、肾炎列的问题；在追踪表第2行界定记录代表的对象。",
+      "applicability": "界定预测对象、可用输入及结论对象。",
+      "artifacts": [
+        "packet-a1.csv",
+        "packet-a2.csv"
+      ],
+      "packet": "A",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q1"
+    },
+    {
+      "id": "AN2",
+      "objective_ids": [
+        "LO3",
+        "LO4"
+      ],
+      "inquiry_question_ids": [
+        "Q2"
+      ],
+      "question": "表 A3 的72/24/24条记录应怎样分配拟合、阈值选择与最终评价职责？",
+      "domain": "validation_robustness",
+      "method": "重排五张流程卡并为每步分配训练/验证/测试数据，判断看过测试后改阈值的后果；在追踪表第3行写数据分工协议。",
+      "applicability": "规定可复现流程与测试解封条件。",
+      "artifacts": [
+        "packet-a3.csv"
+      ],
+      "packet": "A",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q2"
+    },
+    {
+      "id": "AN3",
+      "objective_ids": [
+        "LO10",
+        "LO12",
+        "LO14"
+      ],
+      "inquiry_question_ids": [
+        "Q3"
+      ],
+      "question": "用表 B1 的训练计数，怎样得到表 B2 指定症状组合的膀胱炎症预测？",
+      "domain": "model_behavior",
+      "method": "用计算表从表 B1计数得到查询1的先验、十二个条件因子、类别分数与后验；判断二元关键词表示的适配条件；在追踪表第4行写后验及其依赖的假设。",
+      "applicability": "解释模型从什么数据学到什么及使用假设。",
+      "artifacts": [
+        "packet-b1.csv",
+        "packet-b2.csv",
+        "packet-b3.csv"
+      ],
+      "packet": "B",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q3"
+    },
+    {
+      "id": "AN4",
+      "objective_ids": [
+        "LO5",
+        "LO6"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "question": "表 B4 中两模型判对同样多时，概率损失为何不同；表 B5 的体温误差该如何计量？",
+      "domain": "model_behavior",
+      "method": "用损失表比较表 B4两模型的accuracy与平均交叉熵，计算表 B5的MSE及单位，完成一张证据卡；在追踪表第5行写损失选择。",
+      "applicability": "选择适当的概率评价量并说明NB参数估计方式。",
+      "artifacts": [
+        "packet-b4.csv",
+        "packet-b5.csv"
+      ],
+      "packet": "B",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q4"
+    },
+    {
+      "id": "AN5",
+      "objective_ids": [
+        "LO7",
+        "LO8",
+        "LO9"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "question": "表 C1 的阈值变化、图 C2 的排序和表 C3 的概率频率，分别允许对这个模型说什么？",
+      "domain": "model_behavior",
+      "method": "用指标表计算阈值0.10的六个指标与先验基线precision，比较三个阈值，写出ROC/PR点并解释AUC的边界，读最小校准箱；在追踪表第6行写报告方案并在第1行写冻结草案。",
+      "applicability": "提出有依据的阈值和分类、排序、概率三类报告方案。",
+      "artifacts": [
+        "packet-c1.csv",
+        "packet-c2-ranking.png",
+        "packet-c3.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q5"
+    },
+    {
+      "id": "AN6",
+      "objective_ids": [
+        "LO11",
+        "LO13",
+        "LO15"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "question": "表 D1—D3 的类别内依赖、重复证据和测试组合覆盖，如何改变你交给研究组的方案？",
+      "domain": "validation_robustness",
+      "method": "比较表 D1类别内联合概率与乘积，解释表 D2复制症状并写NB优缺点，按表 D4完成作业原题计算与作答，在追踪表第7行限定推广范围；完成决策检验矩阵与150—250字备忘录初稿。",
+      "applicability": "从追踪表全部模块作最终方案选择，完成原大纲accuracy作业。",
+      "artifacts": [
+        "packet-d1.csv",
+        "packet-d2.csv",
+        "packet-d3.csv",
+        "packet-d4.csv"
+      ],
+      "packet": "D",
+      "interpretation_boundary": "教学内部证据；无临床、因果或外部效度声明。",
+      "notebook_ref": "Q6"
+    }
+  ],
+  "evidence_items": [
+    {
+      "id": "表 A1",
+      "packet": "A",
+      "context": "原始症状记录与变量说明；每行一个专家设计的潜在病例描述，120×8的来源表抽取6条；六输入、两标签；体温℃；各yes/no列非缺失n=120。",
+      "artifacts": [
+        "packet-a1.csv"
+      ]
+    },
+    {
+      "id": "表 A2",
+      "packet": "A",
+      "context": "来源审计；120条、59/61标签、0缺失；21条全行重复余量；编码UTF-16对比文档ASCII；不将一个记录等同独立患者。",
+      "artifacts": [
+        "packet-a2.csv"
+      ]
+    },
+    {
+      "id": "表 A3",
+      "packet": "A",
+      "context": "固定random_state=7分层划分；每行一集合：72/24/24，阳性35/12/12；行编号交集0，暂不报告症状组合交集。",
+      "artifacts": [
+        "packet-a3.csv"
+      ]
+    },
+    {
+      "id": "表 B1",
+      "packet": "B",
+      "context": "每行一个症状；训练72条中35阳性、37阴性的症状阳性计数；体温按预设38℃二值化；用于参数估计，保留少数计算格。",
+      "artifacts": [
+        "packet-b1.csv"
+      ]
+    },
+    {
+      "id": "表 B2",
+      "packet": "B",
+      "context": "给定两条明确的六症状二元向量；列明0/1、两类先验与参考乘积；手算目标后验留作答题，参考核对值在教师材料。",
+      "artifacts": [
+        "packet-b2.csv"
+      ]
+    },
+    {
+      "id": "表 B3",
+      "packet": "B",
+      "context": "Phase 3课堂数据：同源训练72条的二症状计数和独立验证24条的二症状逐例聚合；每组含真实标签、人数、症状；学生拟合和计数。",
+      "artifacts": [
+        "packet-b3.csv"
+      ]
+    },
+    {
+      "id": "表 B4",
+      "packet": "B",
+      "context": "明确标为教学合成的四条标签与两组概率；阈值0.5，全部输入给出；不预写哪一模型更好。",
+      "artifacts": [
+        "packet-b4.csv"
+      ]
+    },
+    {
+      "id": "表 B5",
+      "packet": "B",
+      "context": "教学合成连续结局示例；实测体温[37,39]℃，预测[38,37]℃；要求算平方误差均值，单位℃²。",
+      "artifacts": [
+        "packet-b5.csv"
+      ]
+    },
+    {
+      "id": "表 C1",
+      "packet": "C",
+      "context": "验证24条，每行一阈值；0.10/0.50/0.90的TP/FP/FN/TN及先验基线；无阳性预测时precision显示未定义，另说明软件约定。",
+      "artifacts": [
+        "packet-c1.csv"
+      ]
+    },
+    {
+      "id": "图 C2",
+      "packet": "C",
+      "context": "同一24条验证记录的ROC和PR曲线；标出阈值点；梯形PR面积和AP分别标注；附全输入的小合成排序对照，非新增临床样本。",
+      "artifacts": [
+        "packet-c2-ranking.png"
+      ]
+    },
+    {
+      "id": "表 C3",
+      "packet": "C",
+      "context": "验证24条概率的分箱；每行一个非空箱，给边界、n、阳性数、平均预测概率与观测比例；不凭小样本画平滑线宣称校准。",
+      "artifacts": [
+        "packet-c3.csv"
+      ]
+    },
+    {
+      "id": "表 D1",
+      "packet": "D",
+      "context": "仅训练72条的类别内双症状2×2计数；要求学生比较P(A,B|Y)和P(A|Y)P(B|Y)，不先给判断。",
+      "artifacts": [
+        "packet-d1.csv"
+      ]
+    },
+    {
+      "id": "表 D2",
+      "packet": "D",
+      "context": "同一训练72条，原六特征模型与人为复制恶心的七列模型；穷举64种二元向量不冒充64患者；列三条具体向量及概率。",
+      "artifacts": [
+        "packet-d2.csv"
+      ]
+    },
+    {
+      "id": "表 D3",
+      "packet": "D",
+      "context": "固定教学测试24条：TN12、FP0、FN0、TP12；测试8种二值组合，24/24条的组合在训练出现；原始输入相同的6/24条。",
+      "artifacts": [
+        "packet-d3.csv"
+      ]
+    },
+    {
+      "id": "表 D4",
+      "packet": "D",
+      "context": "纯假设筛查10000人、患病率1%、sensitivity/specifity均95%；给输入不预填precision，学生计算四格。",
+      "artifacts": [
+        "packet-d4.csv"
+      ]
+    }
+  ],
+  "split_plan": {
+    "required": true,
+    "unit": "row",
+    "rationale": "示范训练、验证、测试职责；不宣称行隔离等于组合或患者独立。",
+    "train": 72,
+    "validation": 24,
+    "test": 24,
+    "random_state": 7,
+    "author_test_exposure": "作者在前次探索中已见测试结果；当前固定方案是课堂模拟冻结，不能称新盲测。"
+  },
+  "packets": {
+    "A": {
+      "purpose": "定义任务与工作流",
+      "reveals": [
+        "变量、来源、原始重复、划分"
+      ],
+      "withholds": [
+        "参数、性能、条件依赖、test"
+      ]
+    },
+    "B": {
+      "purpose": "训练及损失",
+      "reveals": [
+        "训练计数、查询症状、两种损失"
+      ],
+      "withholds": [
+        "验证性能、条件依赖、test"
+      ]
+    },
+    "C": {
+      "purpose": "多维评价",
+      "reveals": [
+        "阈值、ROC/PR、校准箱"
+      ],
+      "withholds": [
+        "条件依赖和最终test"
+      ]
+    },
+    "D": {
+      "purpose": "假设及综合",
+      "reveals": [
+        "联合频率、重复特征、测试组合覆盖、低患病率迁移"
+      ],
+      "withholds": []
+    }
+  },
+  "syllabus_tasks": [
+    {
+      "source_excerpt": "课堂练习用一个小型症状数据集训练朴素贝叶斯模型：输入：症状特征；输出：是否患病；计算 sensitivity 和 specificity",
+      "worksheet_location": "Phase 3前15分钟课堂训练①至③；数据表 B3；独立纸笔训练二症状NB并计算sensitivity/specificity；可用辅助notebook核对。"
+    },
+    {
+      "source_excerpt": "作业 解释为什么医学诊断模型不能只看 accuracy。",
+      "worksheet_location": "Q6“作业原题”计算表与作答框（表 D4、表 C1）；课外综合的备忘录从追踪表引用结论。"
+    }
+  ],
+  "boundaries": [
+    "教学用途，不用于临床诊断或患者照护",
+    "不作因果推断",
+    "不把64种穷举向量计作64患者",
+    "不把规则化教学样本的Wilson区间解释成真实患者总体性能保证",
+    "分箱校准的小样本噪声不能凭单图量化总体误差"
+  ],
+  "workload": {
+    "phase1_minutes": 45,
+    "phase2_minutes": 120,
+    "phase3_minutes": 45,
+    "phase2_includes": "阅读、计算表、写答、证据卡、追踪表更新、决策检验矩阵、150—250字备忘录初稿和accuracy作业；不另加必做迁移。",
+    "optional_extensions": [
+      "Wilson区间推导",
+      "测量误差模拟",
+      "按症状组合分组验证",
+      "肾盂肾炎标签重训",
+      "Gaussian NB和其他模型比较"
+    ]
+  },
+  "implementation_notes": [
+    "表 B1只给原始训练计数；待求参数写在独立答题区，避免证据与答案混排。",
+    "表 B2两条查询只必算查询1；第二条为选做。",
+    "概率单调变换给出数值汇总；AP与梯形PR面积不混名。",
+    "课堂二症状练习使用同一72/24划分；不是在验证集重新估计条件概率。",
+    "2026-09-17试填后修订：各模块暂定结论只写在总答案追踪表对应行，不另设重复答题框；手算用预排计算表；删去Q2缺口清单；决策检验矩阵只记已有证据；备忘录缩为150—250字四段结构。"
+  ]
+}

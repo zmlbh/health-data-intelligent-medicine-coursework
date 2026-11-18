@@ -1,0 +1,8 @@
+﻿step,workflow_action,inquiry_questions,required_evidence,change_or_stop_condition
+1,define object question target and grouping,Q1 Q2,data dictionary and structure audit,stop if observation unit or target cannot be defined
+2,audit provenance structure and quality,Q3 Q4,characteristics missingness outliers duplicates site evidence,change design if missingness or site is entangled with outcome
+3,choose representation and similarity semantics,Q5 Q6,metric sensitivity and mixed-type comparison,reject a metric dominated by scale or arbitrary codes
+4,set sampling aggregation and transformation,Q7 Q8,sampling and transformation sensitivity,change if key subgroups disappear or information loss changes the question
+5,choose dimensionality strategy,Q9,PCA loadings and feature option comparison,stop reduction if retained variance loses required interpretation
+6,split when generalization or fitted preprocessing is involved,Q8 Q10,preprocessing audit,reject any parameter fitted with validation or test information
+7,document evidence uncertainty and boundary,Q10,final readiness memo,do not claim clinical causal or deployment validity

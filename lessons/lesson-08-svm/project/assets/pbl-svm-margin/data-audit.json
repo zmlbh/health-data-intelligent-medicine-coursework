@@ -1,0 +1,23 @@
+{
+  "samples": 310,
+  "features": 6,
+  "normal": 100,
+  "abnormal": 210,
+  "missing": 0,
+  "exact_duplicate_rows": 0,
+  "duplicate_feature_rows": 0,
+  "patient_identifier_available": false,
+  "train": 186,
+  "validation": 62,
+  "test": 62,
+  "source": "https://archive.ics.uci.edu/dataset/212/vertebral%2Bcolumn",
+  "license": "CC BY 4.0",
+  "source_sha256": "79cab246a0d4a1863c27095e30729aea5ce2b5e7241e5c01d7e31a55173cf6d2",
+  "documentation_notes": [
+    "源页单位栏为空，不擅自添加单位。",
+    "三分类与二分类文件为同一批记录，不合并为620条。",
+    "存在负值和极端值；来源未提供合理范围，不把负值当缺失，不自动删除。",
+    "未见重复整行不等于已证实患者独立；发布数据没有患者标识可进一步核查。"
+  ],
+  "pelvic_identity_max_abs_error": 0.010000000000005116
+}

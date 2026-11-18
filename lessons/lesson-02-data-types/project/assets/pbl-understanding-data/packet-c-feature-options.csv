@@ -1,0 +1,5 @@
+﻿option,possible_benefit,risk,required_check
+PCA,compress correlated numeric features,components mix original meanings,fit inside training data; inspect explained variance and loadings
+feature subset selection,retain named original variables,selection instability and optimistic bias,perform selection inside resampling and check stability
+feature creation,encode domain-relevant ratios trends or interactions,can import assumptions or leakage,document formula timing and source variables
+retain all features,avoid premature information loss,distance concentration overfitting and computation,use regularization and validation when modeling

@@ -1,0 +1,5 @@
+operation,remaining,boundary_u,width,shown_in_worksheet,support_ids
+全部保留,6,0.0,2.00000000032768,True,"N2,N3,P1"
+移除 N1,5,0.0,2.00000000032768,True,"N2,N3,P1"
+移除 P1,5,1.0,4.0,True,"N3,P3"
+移除 P2,5,0.0,2.00000000032768,False,"N2,N3,P1"

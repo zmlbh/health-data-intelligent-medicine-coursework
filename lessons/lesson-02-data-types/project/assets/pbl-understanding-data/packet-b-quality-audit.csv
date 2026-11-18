@@ -1,0 +1,20 @@
+﻿item,missing_n,missing_pct,iqr_outlier_or_duplicate_n,interpretation_action
+record_id,0,0.0,not assessed,check range and coding
+site,0,0.0,not assessed,check range and coding
+age,0,0.0,0,check range and coding
+sex,0,0.0,not assessed,check range and coding
+cp,0,0.0,not assessed,check range and coding
+trestbps,59,6.4,28,review by site and source semantics
+chol,30,3.3,183,review by site and source semantics
+fbs,90,9.8,not assessed,review by site and source semantics
+restecg,2,0.2,not assessed,review by site and source semantics
+thalach,55,6.0,2,review by site and source semantics
+exang,55,6.0,not assessed,review by site and source semantics
+oldpeak,62,6.7,16,review by site and source semantics
+slope,309,33.6,not assessed,review by site and source semantics
+ca,611,66.4,not assessed,review by site and source semantics
+thal,486,52.8,not assessed,review by site and source semantics
+num,0,0.0,not assessed,check range and coding
+duplicate feature rows,0,0.0,2,do not delete until record linkage is checked
+trestbps recorded as zero,0,0.0,1,verify whether zero is an impossible value or missing-value sentinel before transformation
+chol recorded as zero,0,0.0,172,verify whether zero is an impossible value or missing-value sentinel before transformation

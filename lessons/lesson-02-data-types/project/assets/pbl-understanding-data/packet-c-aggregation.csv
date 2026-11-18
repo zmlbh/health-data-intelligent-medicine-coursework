@@ -1,0 +1,5 @@
+﻿site,patient_n,age_mean,age_sd,chol_mean,chol_sd,disease_prevalence,aggregation_consequence
+Cleveland,303,54.439,9.039,246.693,51.777,0.459,one site row hides patient variation and reduces 920 records to 4
+Hungary,294,47.827,7.812,250.849,67.658,0.361,one site row hides patient variation and reduces 920 records to 4
+Switzerland,123,55.317,9.032,0.0,0.0,0.935,one site row hides patient variation and reduces 920 records to 4
+VA Long Beach,200,59.35,7.812,178.746,114.035,0.745,one site row hides patient variation and reduces 920 records to 4

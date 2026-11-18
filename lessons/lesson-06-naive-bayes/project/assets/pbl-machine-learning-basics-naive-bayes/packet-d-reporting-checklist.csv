@@ -1,0 +1,7 @@
+item,required,reason
+data provenance stated,True,expert-rule data are not a clinical cohort
+split and locked-test rule stated,True,protect the final estimate
+confusion matrix and threshold reported,True,show error types
+"sensitivity, specificity, precision and F1 reported",True,avoid a single-score claim
+probability quality and uncertainty discussed,True,a point estimate is insufficient
+clinical/deployment/causal boundary stated,True,teaching evidence only

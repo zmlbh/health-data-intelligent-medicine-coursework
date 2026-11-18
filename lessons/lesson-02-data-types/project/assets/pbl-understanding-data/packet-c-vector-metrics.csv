@@ -1,0 +1,5 @@
+﻿transformation,euclidean,manhattan,cosine_similarity,correlation,interpretation
+same,0.0,0.0,1.0,1.0,comparison
+scaled_x2,5.603,16.772,1.0,1.0,correlation ignores positive scaling and translation
+shifted_plus2,6.325,20.0,0.902,1.0,correlation ignores positive scaling and translation
+reversed,6.314,16.071,0.365,-0.147,comparison

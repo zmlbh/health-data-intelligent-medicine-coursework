@@ -1,0 +1,15 @@
+variable,type,working_meaning,unit_or_levels,modeling_note
+age,连续,年龄,years,按 1 SD 标准化后进入模型
+sex,二元,数据源编码的性别,1/0,仅作数据字段；不作生物学本质化解释
+chest_pain,名义分类,胸痛类型,1–4,one-hot；1 为参照水平
+resting_bp,连续,静息血压,mm Hg,按 1 SD 标准化
+serum_cholesterol,连续,血清胆固醇,mg/dL,按 1 SD 标准化
+fasting_blood_sugar,二元,空腹血糖是否大于 120 mg/dL,1/0,不标准化
+resting_ecg,名义分类,静息心电图结果,0–2,one-hot；0 为参照水平
+max_heart_rate,连续,最大心率,未注明,按 1 SD 标准化
+exercise_angina,二元,运动诱发心绞痛,1/0,不标准化
+oldpeak,连续,运动相对静息引起的 ST 段压低,未注明,按 1 SD 标准化
+st_slope,有序/分类,运动峰值 ST 段斜率,1–3,本讲保守地按分类变量编码
+major_vessels,计数/有序,造影显示的主要血管数,0–3,本讲作为数值变量并做敏感性讨论
+thal,名义分类,地中海贫血检查结果编码,3/6/7,one-hot；3 为参照水平
+heart_disease_present,二元结局,心脏病是否存在,0/1,1 为阳性类；由原始 1/2 标签重编码

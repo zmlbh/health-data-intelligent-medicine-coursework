@@ -1,0 +1,4 @@
+metric,estimate,ci_low,ci_high,denominator
+accuracy,1.0,0.8620237953250198,1.0,24
+sensitivity,1.0,0.7575059933447592,1.0,12
+specificity,1.0,0.7575059933447592,1.0,12

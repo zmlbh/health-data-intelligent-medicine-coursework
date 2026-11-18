@@ -1,0 +1,6 @@
+﻿question_and_variable_form,check_before_choice,candidate_method,boundary
+continuous feature vs binary outcome,distribution shape and independence,median/IQR plus rank test; or logistic model,association does not establish causation
+nominal feature vs categorical outcome,expected cell counts and sampling design,contingency table with chi-square or Fisher,category codes have no distance
+ordinal outcome,ordered meaning is defensible,ordinal model or rank-based comparison,spacing between levels is not assumed equal
+time-to-event outcome,time origin censoring and follow-up are available,survival analysis,ordinary binary regression discards timing and censoring
+high-dimensional feature matrix,sample size redundancy and validation design,regularized model feature selection or PCA,selection and tuning must remain inside training data

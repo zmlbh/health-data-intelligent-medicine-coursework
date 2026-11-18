@@ -1,0 +1,17 @@
+﻿variable,working_meaning,role,measurement_scale,standardize,analysis_implication
+record_id,record identifier,identifier,nominal,No,do not treat as a numeric feature
+site,data collection site,provenance metadata,nominal,No,stratify or audit site effects
+age,age in years,feature,ratio continuous,Usually,median IQR correlation or model feature
+sex,recorded sex code,feature,binary nominal,No,contingency table or encoded feature
+cp,chest pain category,feature,nominal multiclass,No,counts chi-square or one-hot encoding
+trestbps,resting blood pressure,feature,ratio continuous,Usually,distribution comparison or numeric feature
+chol,serum cholesterol,feature,ratio continuous,Usually,distribution transform or numeric feature
+fbs,fasting blood sugar threshold flag,feature,binary nominal,No,proportion or binary feature
+restecg,resting ECG category,feature,nominal multiclass,No,counts or one-hot encoding
+thalach,maximum heart rate,feature,ratio continuous,Usually,distribution comparison or numeric feature
+exang,exercise-induced angina flag,feature,asymmetric binary,No,Jaccard may be meaningful for symptom presence
+oldpeak,ST depression,feature,ratio continuous,Usually,robust summary transform or numeric feature
+slope,slope category,feature,ordinal,Not as raw category code,ordered summary or explicit encoding
+ca,number of major vessels,feature,discrete count,With context,count or categorical treatment
+thal,thalassemia test category,feature,nominal,No,counts or one-hot encoding
+num,angiographic disease status 0-4,target,ordinal outcome,Not as ordinary continuous,ordinal or binary task after justified definition

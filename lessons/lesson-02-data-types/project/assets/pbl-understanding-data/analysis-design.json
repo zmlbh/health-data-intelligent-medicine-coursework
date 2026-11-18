@@ -1,0 +1,1038 @@
+{
+  "study_goal": "学生综合全章概念，把多源生物医学数据转化为可审计 有边界且防泄漏的机器学习分析数据。",
+  "learning_objectives": [
+    {
+      "id": "LO1",
+      "source_excerpt": "区分连续、离散、二分类、多分类、有序、时间和高维变量。",
+      "observable_outcome": "根据变量语义和测量尺度完成变量分类，并说明判断依据。"
+    },
+    {
+      "id": "LO2",
+      "source_excerpt": "用样本 × 特征的数据矩阵解释临床表格、组学矩阵和图像特征表。",
+      "observable_outcome": "说明数据对象、行列含义、表示结构及其对分析的影响。"
+    },
+    {
+      "id": "LO3",
+      "source_excerpt": "根据变量类型、研究问题和结局形式，提出合理的统计检验或模型候选。",
+      "observable_outcome": "把研究问题、变量类型与可用方法连接起来，并指出适用条件。"
+    },
+    {
+      "id": "LO4",
+      "source_excerpt": "识别缺失值、异常值、批次效应、类别不平衡和测量误差等数据质量问题。",
+      "observable_outcome": "使用数据证据识别质量风险，区分观察事实与原因推断。"
+    },
+    {
+      "id": "LO5",
+      "source_excerpt": "判断哪些变量需要标准化，并说明标准化应在数据划分后如何实施。",
+      "observable_outcome": "设计只用训练数据拟合预处理参数的无泄漏流程。"
+    },
+    {
+      "id": "LO6",
+      "source_excerpt": "对一个公开生物医学数据集完成基本的数据审查，并写出结论边界。",
+      "observable_outcome": "提交可审计的数据准备建议，并明确临床、因果与部署边界。"
+    },
+    {
+      "id": "LO7",
+      "source_excerpt": "根据数据语义选择 Euclidean/Manhattan、cosine、correlation 或 Jaccard 等度量。",
+      "observable_outcome": "比较度量对尺度、平移、相关结构、稀疏性和共同为零的敏感性。"
+    },
+    {
+      "id": "LO8",
+      "source_excerpt": "说明代表性抽样、分层抽样、聚合、离散化、二值化和数值变换的用途、风险与实施顺序。",
+      "observable_outcome": "比较处理方案造成的代表性和信息变化，并给出实施顺序。"
+    }
+  ],
+  "concept_clusters": [
+    {
+      "id": "C1",
+      "name": "数据对象与变量语义",
+      "objective_ids": [
+        "LO1",
+        "LO2",
+        "LO3"
+      ],
+      "concepts": [
+        "data object",
+        "attribute",
+        "variable role",
+        "nominal",
+        "ordinal",
+        "interval",
+        "ratio",
+        "discrete",
+        "continuous",
+        "asymmetric binary"
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "数据表示与数据特征",
+      "objective_ids": [
+        "LO2",
+        "LO6"
+      ],
+      "concepts": [
+        "record",
+        "matrix",
+        "document",
+        "transaction",
+        "graph",
+        "ordered data",
+        "dimensionality",
+        "sparsity",
+        "resolution",
+        "size"
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "数据质量与来源",
+      "objective_ids": [
+        "LO4",
+        "LO6"
+      ],
+      "concepts": [
+        "missingness",
+        "noise",
+        "outlier",
+        "duplicate",
+        "batch effect",
+        "class imbalance",
+        "measurement error",
+        "provenance"
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "相似性 距离与依赖",
+      "objective_ids": [
+        "LO7"
+      ],
+      "concepts": [
+        "Euclidean",
+        "Manhattan",
+        "Minkowski",
+        "Mahalanobis",
+        "SMC",
+        "Jaccard",
+        "cosine",
+        "correlation",
+        "entropy",
+        "mutual information",
+        "mixed-type proximity"
+      ]
+    },
+    {
+      "id": "C5",
+      "name": "抽样 聚合与属性变换",
+      "objective_ids": [
+        "LO5",
+        "LO8"
+      ],
+      "concepts": [
+        "simple random sampling",
+        "stratified sampling",
+        "aggregation",
+        "discretization",
+        "binarization",
+        "encoding",
+        "log transform",
+        "normalization",
+        "data leakage"
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "降维与数据准备综合",
+      "objective_ids": [
+        "LO2",
+        "LO3",
+        "LO5",
+        "LO6",
+        "LO8"
+      ],
+      "concepts": [
+        "curse of dimensionality",
+        "PCA",
+        "feature subset selection",
+        "feature creation",
+        "workflow",
+        "stopping condition",
+        "reporting boundary"
+      ]
+    }
+  ],
+  "misconceptions": [
+    "变量存成数字就一定是连续变量。",
+    "分类标签编码成 0 1 2 后就具有等距含义。",
+    "标准化可以修复缺失 异常 批次效应和测量误差。",
+    "所有特征都可直接放入 Euclidean 距离。",
+    "稀疏二值向量共同为零越多就越相似。",
+    "相关系数接近零表示不存在任何关系。",
+    "可以先用全体数据确定插补 分箱和标准化参数再划分。",
+    "样本量大就等于具有代表性。",
+    "PCA 保留方差就等于保留医学含义。"
+  ],
+  "decision_problem": "为多源生物医学数据制定数据准备决策并说明修改或停止条件。",
+  "driving_question": "这些数据需要如何处理 才能合理用于机器学习？",
+  "entry_type": "direct_problem",
+  "problem_architecture": {
+    "overarching_problem": "研究团队获得四中心临床表格和高维图像特征数据，需要依据数据语义 结构 质量 相似性 抽样 变换和降维证据制定可审计的数据准备工作流，并在证据不足 泄漏或信息损失不可接受时修改或停止。",
+    "inquiry_questions": [
+      {
+        "id": "Q1",
+        "question": "数据对象、属性值、变量角色和测量尺度分别是什么？",
+        "objective_ids": [
+          "LO1",
+          "LO3"
+        ],
+        "concept_ids": [
+          "C1"
+        ],
+        "required_learning": [
+          "变量角色",
+          "测量尺度",
+          "类型与方法适配"
+        ],
+        "student_action": "审查数据字典和尺度微型案例，纠正仅凭数字编码判断变量类型的做法。",
+        "evidence_needed": [
+          "packet-b-data-dictionary.csv",
+          "packet-b-measurement-scale-cases.csv",
+          "packet-b-method-map.csv"
+        ],
+        "student_output": "变量审查表和方法选择理由",
+        "contribution_to_synthesis": "确定哪些描述、变换、距离和方法在语义上允许。"
+      },
+      {
+        "id": "Q2",
+        "question": "数据属于记录、矩阵、文档、事务、图还是有序数据，表示方式如何影响分析？",
+        "objective_ids": [
+          "LO2"
+        ],
+        "concept_ids": [
+          "C1",
+          "C2"
+        ],
+        "required_learning": [
+          "数据对象",
+          "六类数据结构",
+          "观察单位与独立性"
+        ],
+        "student_action": "比较生物医学微型案例，说明每种表示保留和丢失的关系。",
+        "evidence_needed": [
+          "packet-b-structure-types.csv"
+        ],
+        "student_output": "数据表示说明",
+        "contribution_to_synthesis": "确定行列、关系、顺序和分析单位。"
+      },
+      {
+        "id": "Q3",
+        "question": "维度、稀疏性、分辨率和数据规模带来哪些限制？",
+        "objective_ids": [
+          "LO2",
+          "LO8"
+        ],
+        "concept_ids": [
+          "C2",
+          "C6"
+        ],
+        "required_learning": [
+          "维度",
+          "稀疏性",
+          "分辨率",
+          "规模",
+          "维度灾难"
+        ],
+        "student_action": "比较两套数据的结构，并检查距离集中随维度变化。",
+        "evidence_needed": [
+          "packet-b-data-characteristics.csv",
+          "packet-c-distance-concentration.csv"
+        ],
+        "student_output": "计算与表示风险清单",
+        "contribution_to_synthesis": "决定是否改变表示、选择特征或降维。"
+      },
+      {
+        "id": "Q4",
+        "question": "如何发现并处理缺失、异常、噪声、重复、批次效应、不平衡和测量误差？",
+        "objective_ids": [
+          "LO4",
+          "LO6"
+        ],
+        "concept_ids": [
+          "C3"
+        ],
+        "required_learning": [
+          "数据质量诊断",
+          "来源与批次",
+          "事实和原因的区别"
+        ],
+        "student_action": "计算缺失率、站点差异、异常值、重复、异常零值和类别分布，提出核查顺序。",
+        "evidence_needed": [
+          "packet-b-quality-audit.csv",
+          "packet-b-quality-evidence-boundaries.csv",
+          "packet-b-missingness-by-site.csv",
+          "packet-b-missingness.png",
+          "packet-b-target-by-site.csv"
+        ],
+        "student_output": "质量问题 后果 核查 处理矩阵",
+        "contribution_to_synthesis": "形成修复、分层、补充信息或停止分析的条件。"
+      },
+      {
+        "id": "Q5",
+        "question": "Euclidean、Manhattan、Minkowski、Mahalanobis、cosine、correlation和信息度量分别保留什么含义？",
+        "objective_ids": [
+          "LO7"
+        ],
+        "concept_ids": [
+          "C4"
+        ],
+        "required_learning": [
+          "距离与相似性",
+          "尺度与平移敏感性",
+          "协方差",
+          "信息依赖"
+        ],
+        "student_action": "比较缩放前后近邻、向量变换、Minkowski参数和Mahalanobis协方差调整。",
+        "evidence_needed": [
+          "packet-c-neighbor-ranking.csv",
+          "packet-c-metric-comparison.csv",
+          "packet-c-distance-sensitivity.png",
+          "packet-c-vector-metrics.csv",
+          "packet-c-information-measures.csv"
+        ],
+        "student_output": "度量选择备忘录",
+        "contribution_to_synthesis": "定义任务中有意义的相似。"
+      },
+      {
+        "id": "Q6",
+        "question": "面对混合类型变量和缺失值，如何构造可解释的综合相似性？",
+        "objective_ids": [
+          "LO7"
+        ],
+        "concept_ids": [
+          "C4"
+        ],
+        "required_learning": [
+          "SMC 与 Jaccard",
+          "分类型度量",
+          "缺失维度",
+          "加权组合"
+        ],
+        "student_action": "比较共同为零的处理，并设计 Gower 式分项距离。",
+        "evidence_needed": [
+          "packet-c-binary-similarity.csv",
+          "packet-c-mixed-similarity.csv"
+        ],
+        "student_output": "综合相似性规则及边界",
+        "contribution_to_synthesis": "避免把任意编码后的混合变量直接投入统一距离。"
+      },
+      {
+        "id": "Q7",
+        "question": "抽样和聚合会改变什么，如何检查代表性和信息损失？",
+        "objective_ids": [
+          "LO6",
+          "LO8"
+        ],
+        "concept_ids": [
+          "C5"
+        ],
+        "required_learning": [
+          "随机抽样",
+          "分层抽样",
+          "代表性",
+          "聚合"
+        ],
+        "student_action": "重复比较随机与分层抽样，并对比患者级与站点级结果。",
+        "evidence_needed": [
+          "packet-c-sampling-replicates.csv",
+          "packet-c-sampling-sensitivity.png",
+          "packet-c-aggregation.csv"
+        ],
+        "student_output": "抽样与聚合建议",
+        "contribution_to_synthesis": "明确数据代表谁以及哪些细节被聚合隐藏。"
+      },
+      {
+        "id": "Q8",
+        "question": "离散化、二值化、编码、变换和标准化应如何选择并防止泄漏？",
+        "objective_ids": [
+          "LO5",
+          "LO8"
+        ],
+        "concept_ids": [
+          "C5"
+        ],
+        "required_learning": [
+          "离散化",
+          "二值化",
+          "one-hot",
+          "数值变换",
+          "标准化",
+          "训练集拟合"
+        ],
+        "student_action": "比较处理前后分布，审计两条预处理流程并修正顺序。",
+        "evidence_needed": [
+          "packet-c-transformation-summary.csv",
+          "packet-c-transformations.png",
+          "packet-d-preprocessing-audit.csv"
+        ],
+        "student_output": "无泄漏预处理流程",
+        "contribution_to_synthesis": "规定每个预处理参数的拟合数据和执行时点。"
+      },
+      {
+        "id": "Q9",
+        "question": "何时需要 PCA、特征选择或特征创建，如何检查信息和语义损失？",
+        "objective_ids": [
+          "LO2",
+          "LO8"
+        ],
+        "concept_ids": [
+          "C6"
+        ],
+        "required_learning": [
+          "相关冗余",
+          "PCA",
+          "解释方差",
+          "特征选择",
+          "特征创建"
+        ],
+        "student_action": "检查相关特征、累计解释方差和载荷，比较三类维度处理。",
+        "evidence_needed": [
+          "packet-c-pca-summary.csv",
+          "packet-c-pca-loadings.csv",
+          "packet-c-pca.png",
+          "packet-c-feature-options.csv"
+        ],
+        "student_output": "降维决策及信息损失说明",
+        "contribution_to_synthesis": "在计算、预测信息和医学可解释性之间做有边界的选择。"
+      },
+      {
+        "id": "Q10",
+        "question": "如何综合证据形成可审计的数据准备工作流、方法候选和停止条件？",
+        "objective_ids": [
+          "LO3",
+          "LO5",
+          "LO6"
+        ],
+        "concept_ids": [
+          "C6"
+        ],
+        "required_learning": [
+          "工作流综合",
+          "适用性",
+          "不确定性",
+          "结论边界"
+        ],
+        "student_action": "把 Q1 至 Q9 的结果写成主张 证据 推理 边界，并标注停止条件。",
+        "evidence_needed": [
+          "packet-d-workflow-decision.csv",
+          "packet-d-boundary-checklist.csv",
+          "packet-d-preprocessing-workflow.png"
+        ],
+        "student_output": "最终 Data readiness plan",
+        "contribution_to_synthesis": "直接回答总问题并说明何时修改或停止流程。"
+      }
+    ]
+  },
+  "course_coverage": [
+    {
+      "objective_id": "LO1",
+      "source_excerpt": "区分连续、离散、二分类、多分类、有序、时间和高维变量。",
+      "observable_outcome": "根据变量语义和测量尺度完成变量分类，并说明判断依据。",
+      "concept_cluster_ids": [
+        "C1"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "analysis_ids": [
+        "A1"
+      ],
+      "required_learning": [
+        "变量角色",
+        "测量尺度",
+        "类型与方法适配"
+      ],
+      "student_action": "审查数据字典和尺度微型案例，纠正仅凭数字编码判断变量类型的做法。",
+      "student_output": "变量审查表和方法选择理由",
+      "worksheet_location": "Phase 2 Q1 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "根据变量语义和测量尺度完成变量分类，并说明判断依据。"
+    },
+    {
+      "objective_id": "LO2",
+      "source_excerpt": "用样本 × 特征的数据矩阵解释临床表格、组学矩阵和图像特征表。",
+      "observable_outcome": "说明数据对象、行列含义、表示结构及其对分析的影响。",
+      "concept_cluster_ids": [
+        "C1",
+        "C2",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q2",
+        "Q3",
+        "Q9"
+      ],
+      "analysis_ids": [
+        "A2",
+        "A3",
+        "A9"
+      ],
+      "required_learning": [
+        "PCA",
+        "六类数据结构",
+        "分辨率",
+        "数据对象",
+        "特征创建",
+        "特征选择",
+        "相关冗余",
+        "稀疏性",
+        "维度",
+        "维度灾难",
+        "观察单位与独立性",
+        "规模",
+        "解释方差"
+      ],
+      "student_action": "比较生物医学微型案例，说明每种表示保留和丢失的关系。；比较两套数据的结构，并检查距离集中随维度变化。；检查相关特征、累计解释方差和载荷，比较三类维度处理。",
+      "student_output": "数据表示说明；计算与表示风险清单；降维决策及信息损失说明",
+      "worksheet_location": "Phase 2 Q2 Q3 Q9 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "说明数据对象、行列含义、表示结构及其对分析的影响。"
+    },
+    {
+      "objective_id": "LO3",
+      "source_excerpt": "根据变量类型、研究问题和结局形式，提出合理的统计检验或模型候选。",
+      "observable_outcome": "把研究问题、变量类型与可用方法连接起来，并指出适用条件。",
+      "concept_cluster_ids": [
+        "C1",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q1",
+        "Q10"
+      ],
+      "analysis_ids": [
+        "A1",
+        "A10"
+      ],
+      "required_learning": [
+        "不确定性",
+        "变量角色",
+        "工作流综合",
+        "测量尺度",
+        "类型与方法适配",
+        "结论边界",
+        "适用性"
+      ],
+      "student_action": "审查数据字典和尺度微型案例，纠正仅凭数字编码判断变量类型的做法。；把 Q1 至 Q9 的结果写成主张 证据 推理 边界，并标注停止条件。",
+      "student_output": "变量审查表和方法选择理由；最终 Data readiness plan",
+      "worksheet_location": "Phase 2 Q1 Q10 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "把研究问题、变量类型与可用方法连接起来，并指出适用条件。"
+    },
+    {
+      "objective_id": "LO4",
+      "source_excerpt": "识别缺失值、异常值、批次效应、类别不平衡和测量误差等数据质量问题。",
+      "observable_outcome": "使用数据证据识别质量风险，区分观察事实与原因推断。",
+      "concept_cluster_ids": [
+        "C3"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "analysis_ids": [
+        "A4"
+      ],
+      "required_learning": [
+        "事实和原因的区别",
+        "数据质量诊断",
+        "来源与批次"
+      ],
+      "student_action": "计算缺失率、站点差异、异常值、重复、异常零值和类别分布，提出核查顺序。",
+      "student_output": "质量问题 后果 核查 处理矩阵",
+      "worksheet_location": "Phase 2 Q4 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "使用数据证据识别质量风险，区分观察事实与原因推断。"
+    },
+    {
+      "objective_id": "LO5",
+      "source_excerpt": "判断哪些变量需要标准化，并说明标准化应在数据划分后如何实施。",
+      "observable_outcome": "设计只用训练数据拟合预处理参数的无泄漏流程。",
+      "concept_cluster_ids": [
+        "C5",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q8",
+        "Q10"
+      ],
+      "analysis_ids": [
+        "A8",
+        "A10"
+      ],
+      "required_learning": [
+        "one-hot",
+        "不确定性",
+        "二值化",
+        "工作流综合",
+        "数值变换",
+        "标准化",
+        "离散化",
+        "结论边界",
+        "训练集拟合",
+        "适用性"
+      ],
+      "student_action": "比较处理前后分布，审计两条预处理流程并修正顺序。；把 Q1 至 Q9 的结果写成主张 证据 推理 边界，并标注停止条件。",
+      "student_output": "无泄漏预处理流程；最终 Data readiness plan",
+      "worksheet_location": "Phase 2 Q8 Q10 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "设计只用训练数据拟合预处理参数的无泄漏流程。"
+    },
+    {
+      "objective_id": "LO6",
+      "source_excerpt": "对一个公开生物医学数据集完成基本的数据审查，并写出结论边界。",
+      "observable_outcome": "提交可审计的数据准备建议，并明确临床、因果与部署边界。",
+      "concept_cluster_ids": [
+        "C2",
+        "C3",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q4",
+        "Q7",
+        "Q10"
+      ],
+      "analysis_ids": [
+        "A4",
+        "A7",
+        "A10"
+      ],
+      "required_learning": [
+        "不确定性",
+        "事实和原因的区别",
+        "代表性",
+        "分层抽样",
+        "工作流综合",
+        "数据质量诊断",
+        "来源与批次",
+        "结论边界",
+        "聚合",
+        "适用性",
+        "随机抽样"
+      ],
+      "student_action": "计算缺失率、站点差异、异常值、重复、异常零值和类别分布，提出核查顺序。；重复比较随机与分层抽样，并对比患者级与站点级结果。；把 Q1 至 Q9 的结果写成主张 证据 推理 边界，并标注停止条件。",
+      "student_output": "质量问题 后果 核查 处理矩阵；抽样与聚合建议；最终 Data readiness plan",
+      "worksheet_location": "Phase 2 Q4 Q7 Q10 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "提交可审计的数据准备建议，并明确临床、因果与部署边界。"
+    },
+    {
+      "objective_id": "LO7",
+      "source_excerpt": "根据数据语义选择 Euclidean/Manhattan、cosine、correlation 或 Jaccard 等度量。",
+      "observable_outcome": "比较度量对尺度、平移、相关结构、稀疏性和共同为零的敏感性。",
+      "concept_cluster_ids": [
+        "C4"
+      ],
+      "inquiry_question_ids": [
+        "Q5",
+        "Q6"
+      ],
+      "analysis_ids": [
+        "A5",
+        "A6"
+      ],
+      "required_learning": [
+        "SMC 与 Jaccard",
+        "信息依赖",
+        "分类型度量",
+        "加权组合",
+        "协方差",
+        "尺度与平移敏感性",
+        "缺失维度",
+        "距离与相似性"
+      ],
+      "student_action": "比较缩放前后近邻、向量变换、Minkowski参数和Mahalanobis协方差调整。；比较共同为零的处理，并设计 Gower 式分项距离。",
+      "student_output": "度量选择备忘录；综合相似性规则及边界",
+      "worksheet_location": "Phase 2 Q5 Q6 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "比较度量对尺度、平移、相关结构、稀疏性和共同为零的敏感性。"
+    },
+    {
+      "objective_id": "LO8",
+      "source_excerpt": "说明代表性抽样、分层抽样、聚合、离散化、二值化和数值变换的用途、风险与实施顺序。",
+      "observable_outcome": "比较处理方案造成的代表性和信息变化，并给出实施顺序。",
+      "concept_cluster_ids": [
+        "C5",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q3",
+        "Q7",
+        "Q8",
+        "Q9"
+      ],
+      "analysis_ids": [
+        "A3",
+        "A7",
+        "A8",
+        "A9"
+      ],
+      "required_learning": [
+        "PCA",
+        "one-hot",
+        "二值化",
+        "代表性",
+        "分层抽样",
+        "分辨率",
+        "数值变换",
+        "标准化",
+        "特征创建",
+        "特征选择",
+        "相关冗余",
+        "离散化",
+        "稀疏性",
+        "维度",
+        "维度灾难",
+        "聚合",
+        "规模",
+        "解释方差",
+        "训练集拟合",
+        "随机抽样"
+      ],
+      "student_action": "比较两套数据的结构，并检查距离集中随维度变化。；重复比较随机与分层抽样，并对比患者级与站点级结果。；比较处理前后分布，审计两条预处理流程并修正顺序。；检查相关特征、累计解释方差和载荷，比较三类维度处理。",
+      "student_output": "计算与表示风险清单；抽样与聚合建议；无泄漏预处理流程；降维决策及信息损失说明",
+      "worksheet_location": "Phase 2 Q3 Q7 Q8 Q9 and Packet evidence pages",
+      "synthesis_use": "用于最终Data readiness plan中的主张 证据 推理 边界和停止条件",
+      "assessment_evidence": "比较处理方案造成的代表性和信息变化，并给出实施顺序。"
+    }
+  ],
+  "data_context": {
+    "primary_dataset": {
+      "dataset_name": "UCI Heart Disease four-site teaching table",
+      "source": "UCI DOI 10.24432/C52P4X",
+      "license_note": "CC BY 4.0 recorded in course metadata",
+      "task": "data readiness audit",
+      "observation_unit": "one historical patient record",
+      "rows": 920,
+      "columns": 16,
+      "variable_roles": {
+        "identifier": [
+          "record_id"
+        ],
+        "provenance": [
+          "site"
+        ],
+        "features": [
+          "age",
+          "sex",
+          "cp",
+          "trestbps",
+          "chol",
+          "fbs",
+          "restecg",
+          "thalach",
+          "exang",
+          "oldpeak",
+          "slope",
+          "ca",
+          "thal"
+        ],
+        "target": [
+          "num"
+        ]
+      },
+      "grouping_fields": [
+        "site"
+      ],
+      "target": "num 0-4; teaching binary view num>0"
+    },
+    "supporting_dataset": {
+      "dataset_name": "Breast Cancer Wisconsin Diagnostic",
+      "source": "UCI WDBC bundled in scikit-learn",
+      "license_note": "Attribution included; recheck current UCI terms before external redistribution",
+      "task": "dimensionality and PCA",
+      "observation_unit": "one digitized FNA sample",
+      "rows": 569,
+      "features": 30,
+      "target": "diagnosis 212 malignant 357 benign"
+    }
+  },
+  "analyses": [
+    {
+      "id": "A1",
+      "objective_ids": [
+        "LO1",
+        "LO3"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "question": "变量语义和尺度允许哪些描述与方法？",
+      "domain": "variable_semantics",
+      "method": "人工审查数据字典和尺度微型案例并建立变量类型到方法的映射",
+      "applicability": "直接检验变量语义和方法匹配",
+      "artifacts": [
+        "packet-b-data-dictionary.csv",
+        "packet-b-measurement-scale-cases.csv",
+        "packet-b-method-map.csv"
+      ],
+      "packet": "B",
+      "interpretation_boundary": "方法候选仍取决于研究设计和假设",
+      "notebook_ref": "A1-variable-semantics"
+    },
+    {
+      "id": "A2",
+      "objective_ids": [
+        "LO2"
+      ],
+      "inquiry_question_ids": [
+        "Q2"
+      ],
+      "question": "不同数据结构保留哪些关系？",
+      "domain": "data_structure",
+      "method": "比较记录 矩阵 文档 事务 图和有序数据的观察单位与依赖",
+      "applicability": "使学生在建立样本特征矩阵前明确结构",
+      "artifacts": [
+        "packet-b-structure-types.csv"
+      ],
+      "packet": "B",
+      "interpretation_boundary": "微型案例说明结构后果但不替代具体数据建模",
+      "notebook_ref": "A2-data-structures"
+    },
+    {
+      "id": "A3",
+      "objective_ids": [
+        "LO2",
+        "LO8"
+      ],
+      "inquiry_question_ids": [
+        "Q3",
+        "Q9"
+      ],
+      "question": "维度 稀疏性和冗余如何影响距离与表示？",
+      "domain": "data_structure",
+      "method": "比较数据特征并计算距离集中随维度的变化",
+      "applicability": "覆盖高维数据和维度灾难",
+      "artifacts": [
+        "packet-b-data-characteristics.csv",
+        "packet-c-distance-concentration.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "距离集中不直接决定预测模型优劣",
+      "notebook_ref": "A3-dimensionality"
+    },
+    {
+      "id": "A4",
+      "objective_ids": [
+        "LO4",
+        "LO6"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "question": "哪些质量问题由数据直接支持？",
+      "domain": "data_quality",
+      "method": "缺失率 站点缺失 差异 异常 重复 异常零值和目标分布审查",
+      "applicability": "主数据包含真实的多站点缺失和分布差异",
+      "artifacts": [
+        "packet-b-quality-audit.csv",
+        "packet-b-quality-evidence-boundaries.csv",
+        "packet-b-missingness-by-site.csv",
+        "packet-b-missingness.png",
+        "packet-b-target-by-site.csv"
+      ],
+      "packet": "B",
+      "interpretation_boundary": "观察到的模式不能单独识别缺失或站点差异原因",
+      "notebook_ref": "A4-quality-audit"
+    },
+    {
+      "id": "A5",
+      "objective_ids": [
+        "LO7"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "question": "度量选择和缩放如何改变相似性判断？",
+      "domain": "similarity_distance",
+      "method": "比较Euclidean Manhattan Minkowski Mahalanobis cosine correlation 信息量和缩放前后近邻",
+      "applicability": "显示度量保留的含义不同",
+      "artifacts": [
+        "packet-c-neighbor-ranking.csv",
+        "packet-c-metric-comparison.csv",
+        "packet-c-distance-sensitivity.png",
+        "packet-c-vector-metrics.csv",
+        "packet-c-information-measures.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "示例度量不保证任务相关性 Mahalanobis还依赖稳定的协方差估计",
+      "notebook_ref": "A5-metric-sensitivity"
+    },
+    {
+      "id": "A6",
+      "objective_ids": [
+        "LO7"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "question": "二值与混合变量如何组合相似性？",
+      "domain": "similarity_distance",
+      "method": "比较SMC Jaccard和按变量类型分项的Gower式距离",
+      "applicability": "主数据同时含连续 名义 有序和非对称二值变量",
+      "artifacts": [
+        "packet-c-binary-similarity.csv",
+        "packet-c-mixed-similarity.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "权重仍需由任务语义和领域知识确定",
+      "notebook_ref": "A6-mixed-similarity"
+    },
+    {
+      "id": "A7",
+      "objective_ids": [
+        "LO6",
+        "LO8"
+      ],
+      "inquiry_question_ids": [
+        "Q7"
+      ],
+      "question": "抽样和聚合保护或损失了什么？",
+      "domain": "sampling_representativeness",
+      "method": "250次随机与站点分层抽样比较 加上站点聚合",
+      "applicability": "四中心结构可观察代表性变化",
+      "artifacts": [
+        "packet-c-sampling-replicates.csv",
+        "packet-c-sampling-sensitivity.png",
+        "packet-c-aggregation.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "分层只保护所用分层变量 不保证总体代表性",
+      "notebook_ref": "A7-sampling-aggregation"
+    },
+    {
+      "id": "A8",
+      "objective_ids": [
+        "LO5",
+        "LO8"
+      ],
+      "inquiry_question_ids": [
+        "Q8"
+      ],
+      "question": "变换 标准化和实施顺序如何影响数据？",
+      "domain": "transformation_preprocessing",
+      "method": "分布变换 分箱比较以及全数据拟合与训练集拟合审查",
+      "applicability": "直接覆盖变换和防泄漏目标",
+      "artifacts": [
+        "packet-c-transformation-summary.csv",
+        "packet-c-transformations.png",
+        "packet-d-preprocessing-audit.csv"
+      ],
+      "packet": "D",
+      "interpretation_boundary": "变换不能修复来源 缺失机制或测量问题",
+      "notebook_ref": "A8-transform-leakage"
+    },
+    {
+      "id": "A9",
+      "objective_ids": [
+        "LO2",
+        "LO8"
+      ],
+      "inquiry_question_ids": [
+        "Q9"
+      ],
+      "question": "维度处理如何平衡压缩 信息和语义？",
+      "domain": "transformation_preprocessing",
+      "method": "标准化后PCA 解释方差 载荷和特征策略比较",
+      "applicability": "WDBC提供小型相关高维数值特征",
+      "artifacts": [
+        "packet-c-pca-summary.csv",
+        "packet-c-pca-loadings.csv",
+        "packet-c-pca.png",
+        "packet-c-feature-options.csv"
+      ],
+      "packet": "C",
+      "interpretation_boundary": "解释方差不等于临床意义或任务表现",
+      "notebook_ref": "A9-pca-features"
+    },
+    {
+      "id": "A10",
+      "objective_ids": [
+        "LO3",
+        "LO5",
+        "LO6"
+      ],
+      "inquiry_question_ids": [
+        "Q10"
+      ],
+      "question": "完整数据准备流程如何被审查和停止？",
+      "domain": "validation_robustness",
+      "method": "综合Q1至Q9形成步骤 证据 修改停止条件和报告边界",
+      "applicability": "把分散概念变为可审计决策",
+      "artifacts": [
+        "packet-d-workflow-decision.csv",
+        "packet-d-boundary-checklist.csv",
+        "packet-d-preprocessing-workflow.png"
+      ],
+      "packet": "D",
+      "interpretation_boundary": "工作流仅用于教学数据审查 不证明临床或部署有效",
+      "notebook_ref": "A10-synthesis"
+    }
+  ],
+  "split_plan": {
+    "required": true,
+    "unit": "patient record",
+    "rationale": "仅用于演示拟合型插补和标准化参数必须在划分后从训练数据估计；本章不评价预测性能。"
+  },
+  "packets": {
+    "A": {
+      "purpose": "界定总问题并保存初始判断",
+      "reveals": [
+        "数据规模",
+        "问题地图",
+        "缺失证据清单"
+      ],
+      "withholds": [
+        "结构质量证据",
+        "敏感性结果",
+        "综合工作流"
+      ]
+    },
+    "B": {
+      "purpose": "解释数据语义 结构和质量",
+      "reveals": [
+        "数据字典",
+        "结构案例",
+        "缺失和站点证据"
+      ],
+      "withholds": [
+        "度量 抽样 变换 降维和综合证据"
+      ]
+    },
+    "C": {
+      "purpose": "比较相似性 抽样 变换和降维",
+      "reveals": [
+        "敏感性与信息损失证据"
+      ],
+      "withholds": [
+        "最终综合与边界"
+      ]
+    },
+    "D": {
+      "purpose": "综合可审计工作流",
+      "reveals": [
+        "泄漏审查",
+        "停止条件",
+        "边界"
+      ],
+      "withholds": []
+    }
+  },
+  "boundaries": [
+    "teaching only",
+    "no causal inference",
+    "no clinical utility claim",
+    "no deployment readiness",
+    "missingness mechanism not identified",
+    "PCA variance is not clinical meaning"
+  ]
+}

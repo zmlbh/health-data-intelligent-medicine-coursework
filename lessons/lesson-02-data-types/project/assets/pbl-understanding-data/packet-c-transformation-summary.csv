@@ -1,0 +1,6 @@
+﻿variable_or_operation,n,raw_mean_or_setting,raw_median_or_counts,raw_skew,transformed_skew,interpretation
+chol,890,199.13,223.0,-0.614,-1.523,"log1p is a candidate, not an automatic requirement"
+oldpeak,858,0.879,0.5,1.041,0.213,"log1p is a candidate, not an automatic requirement"
+trestbps,861,132.132,130.0,0.213,-13.488,"log1p is a candidate, not an automatic requirement"
+age equal-width bins,920,5 bins,"[49, 190, 350, 277, 54]",NA,NA,fixed widths can create uneven counts
+age equal-frequency bins,920,5 bins,"[196, 192, 201, 176, 155]",NA,NA,quantile cut points must be fitted on training data

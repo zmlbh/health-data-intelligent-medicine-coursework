@@ -1,0 +1,9 @@
+﻿candidate,Euclidean_standardized,Manhattan_standardized,Minkowski_p3_standardized,Mahalanobis_covariance_adjusted,interpretation_check
+Cleveland-098,0.621,1.381,0.477,0.625,rank may change; Mahalanobis also depends on covariance estimation
+Cleveland-175,0.801,1.299,0.736,0.821,rank may change; Mahalanobis also depends on covariance estimation
+Cleveland-244,0.722,1.301,0.632,0.784,rank may change; Mahalanobis also depends on covariance estimation
+Cleveland-271,0.739,1.578,0.591,0.765,rank may change; Mahalanobis also depends on covariance estimation
+VA-Long-Beach-004,0.887,1.287,0.854,0.997,rank may change; Mahalanobis also depends on covariance estimation
+VA-Long-Beach-082,0.706,1.081,0.67,0.77,rank may change; Mahalanobis also depends on covariance estimation
+VA-Long-Beach-147,0.708,1.515,0.561,0.623,rank may change; Mahalanobis also depends on covariance estimation
+VA-Long-Beach-149,0.873,1.712,0.727,0.73,rank may change; Mahalanobis also depends on covariance estimation

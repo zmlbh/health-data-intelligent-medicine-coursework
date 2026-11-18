@@ -1,0 +1,5 @@
+﻿record_a,record_b,a_sex_fbs_exang,b_sex_fbs_exang,joint_zero_count,SMC,Jaccard
+Cleveland-001,Cleveland-002,"[1, 1, 0]","[1, 0, 1]",0,0.333,0.333
+Cleveland-001,Cleveland-006,"[1, 1, 0]","[1, 0, 0]",1,0.667,0.5
+Cleveland-003,Cleveland-013,"[1, 0, 1]","[1, 1, 1]",0,0.667,0.667
+Cleveland-011,Cleveland-041,"[1, 0, 0]","[0, 0, 0]",2,0.667,0.0

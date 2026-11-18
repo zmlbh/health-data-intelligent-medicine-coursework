@@ -1,0 +1,19 @@
+﻿component,absolute_loading_rank,feature,loading
+PC1,1,mean concave points,0.2609
+PC1,2,mean concavity,0.2584
+PC1,3,worst concave points,0.2509
+PC1,4,mean compactness,0.2393
+PC1,5,worst perimeter,0.2366
+PC1,6,worst concavity,0.2288
+PC2,1,mean fractal dimension,0.3666
+PC2,2,fractal dimension error,0.2801
+PC2,3,worst fractal dimension,0.2753
+PC2,4,mean radius,-0.2339
+PC2,5,compactness error,0.2327
+PC2,6,mean area,-0.2311
+PC3,1,texture error,0.3746
+PC3,2,smoothness error,0.3088
+PC3,3,symmetry error,0.2886
+PC3,4,worst symmetry,-0.2713
+PC3,5,radius error,0.2685
+PC3,6,perimeter error,0.2666

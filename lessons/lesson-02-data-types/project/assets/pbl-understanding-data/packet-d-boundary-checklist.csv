@@ -1,0 +1,7 @@
+﻿boundary_area,evidence_can_support,evidence_cannot_support
+descriptive,describe patterns in the supplied historical records,population prevalence or representativeness
+association,identify observed relationships for teaching,causal effects of measurements or interventions
+prediction,illustrate preparation effects,clinical utility safety calibration or external validity
+missingness,locate missing values,identify mechanism without collection knowledge
+site difference,show source distributions differ,attribute causes without source metadata
+PCA,describe retained variance,preserve clinical meaning or predictive signal

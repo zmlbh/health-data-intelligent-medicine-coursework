@@ -1,0 +1,8 @@
+﻿quality_issue,observable_signal,not_identified_by_table_alone,next_action
+explicit missing value,NA counts and site pattern,missing mechanism and collection reason,obtain codebook and collection metadata before imputation
+implausible recorded zero,chol trestbps or thalach equals zero,whether zero means not measured device limit or entry error,recode only after source verification
+outlier,IQR or robust distribution flag,error versus genuine extreme patient,inspect source and sensitivity; do not delete automatically
+batch or site effect,distribution or missingness differs by site,biological population equipment or workflow cause,retain provenance and analyze by source
+measurement noise,unexpected spread or disagreement,instrument and repeatability process,request replicate calibration or QC information
+duplicate,identical rows or identifiers,repeated visit true duplicate or linked sample,resolve observation unit and linkage before removal
+class imbalance,target distribution,decision prevalence and sampling frame,choose sampling and evaluation consistent with the question

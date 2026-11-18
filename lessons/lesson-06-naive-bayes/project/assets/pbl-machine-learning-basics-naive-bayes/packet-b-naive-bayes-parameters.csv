@@ -1,0 +1,15 @@
+parameter_type,class,feature,train_count,probability,laplace_alpha
+prior,0,(class prior),37,0.5138888888888888,1.0
+likelihood,0,fever_ge_38,37,0.6666666666666669,1.0
+likelihood,0,nausea,37,0.15384615384615385,1.0
+likelihood,0,lumbar_pain,37,0.794871794871795,1.0
+likelihood,0,urine_pushing,37,0.3589743589743589,1.0
+likelihood,0,micturition_pains,37,0.15384615384615385,1.0
+likelihood,0,burning_urethra,37,0.3589743589743589,1.0
+prior,1,(class prior),35,0.48611111111111105,1.0
+likelihood,1,fever_ge_38,35,0.37837837837837834,1.0
+likelihood,1,nausea,35,0.37837837837837834,1.0
+likelihood,1,lumbar_pain,35,0.37837837837837834,1.0
+likelihood,1,urine_pushing,35,0.972972972972973,1.0
+likelihood,1,micturition_pains,35,0.783783783783784,1.0
+likelihood,1,burning_urethra,35,0.48648648648648646,1.0

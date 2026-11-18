@@ -1,0 +1,6 @@
+﻿anchor,candidate,site,mixed_distance,dimensions_used,component_distances,missing_rule
+Cleveland-001,Hungary-001,Hungary,0.447,5,age:0.71; trestbps:0.07; sex:0.00; cp:1.00,missing dimensions excluded rather than treated as matches
+Cleveland-001,Switzerland-001,Switzerland,0.377,6,age:0.63; trestbps:0.25; sex:0.00; cp:0.00; slope:1.00,missing dimensions excluded rather than treated as matches
+Cleveland-001,VA-Long-Beach-001,VA Long Beach,0.421,6,age:0.00; trestbps:0.03; sex:0.00; cp:1.00; slope:0.50; exang:1.00,missing dimensions excluded rather than treated as matches
+Cleveland-001,Cleveland-101,Cleveland,0.503,6,age:0.37; trestbps:0.15; sex:0.00; cp:1.00; slope:1.00,missing dimensions excluded rather than treated as matches
+Cleveland-001,Hungary-198,Hungary,0.516,6,age:0.47; trestbps:0.12; sex:0.00; cp:1.00; slope:0.50; exang:1.00,missing dimensions excluded rather than treated as matches

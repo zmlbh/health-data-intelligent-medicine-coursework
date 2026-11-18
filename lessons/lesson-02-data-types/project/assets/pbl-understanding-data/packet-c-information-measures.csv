@@ -1,0 +1,6 @@
+﻿measure,value,meaning
+target_entropy_bits,0.9918,uncertainty in the binary teaching outcome
+mutual_information_age_bin,0.0464,observed dependence; not causal importance
+mutual_information_chol_bin,0.0611,observed dependence; not causal importance
+mutual_information_cp,0.1559,observed dependence; not causal importance
+mutual_information_exang,0.1091,observed dependence; not causal importance

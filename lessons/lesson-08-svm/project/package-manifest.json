@@ -1,0 +1,424 @@
+{
+  "topic": "第9讲 SVM与Margin",
+  "slug": "svm-margin",
+  "mode": "algorithm choice",
+  "dataset": {
+    "name": "UCI Vertebral Column",
+    "source": "https://archive.ics.uci.edu/dataset/212/vertebral%2Bcolumn",
+    "task": "binary classification",
+    "target": "AB=1,NO=0"
+  },
+  "outputs": {
+    "student_worksheet": "pbl-svm-margin-student-worksheet.docx",
+    "evidence_pack": "pbl-svm-margin-evidence-pack.docx",
+    "teaching_plan": "pbl-svm-margin-teaching-plan-flipped-classroom.docx",
+    "design_rationale": "pbl-svm-margin-design-rationale.docx",
+    "notebook": "notebook/pbl-svm-margin-lab.ipynb"
+  },
+  "assets": [
+    "assets/pbl-svm-margin/analysis-design.json",
+    "assets/pbl-svm-margin/data-audit.json",
+    "assets/pbl-svm-margin/dataset-summary.csv",
+    "assets/pbl-svm-margin/environment.json",
+    "assets/pbl-svm-margin/figure-b1.png",
+    "assets/pbl-svm-margin/figure-c1.png",
+    "assets/pbl-svm-margin/figure-c2.png",
+    "assets/pbl-svm-margin/figure-d1.png",
+    "assets/pbl-svm-margin/figure-s1.png",
+    "assets/pbl-svm-margin/packet-a-audit.csv",
+    "assets/pbl-svm-margin/packet-a-six-points.csv",
+    "assets/pbl-svm-margin/packet-b-removal.csv",
+    "assets/pbl-svm-margin/packet-b-simulation.csv",
+    "assets/pbl-svm-margin/packet-c-contrast.csv",
+    "assets/pbl-svm-margin/packet-c-real-grid.csv",
+    "assets/pbl-svm-margin/packet-c-selected.csv",
+    "assets/pbl-svm-margin/packet-d-scale.csv",
+    "assets/pbl-svm-margin/packet-d-stress.csv",
+    "assets/pbl-svm-margin/packet-d-test.csv",
+    "assets/pbl-svm-margin/simulation.csv",
+    "assets/pbl-svm-margin/source-data/column_2C.dat",
+    "assets/pbl-svm-margin/source-data/column_2C_weka.arff",
+    "assets/pbl-svm-margin/source-data/column_3C.dat",
+    "assets/pbl-svm-margin/source-data/column_3C_weka.arff",
+    "assets/pbl-svm-margin/source-data/vertebral-column.zip",
+    "assets/pbl-svm-margin/split.csv",
+    "assets/pbl-svm-margin/vertebral-column.csv"
+  ],
+  "boundary": "教学研究；不构成临床、因果或部署结论。",
+  "core_question": "脊柱生物力学研究组要在下一轮离线算法比较中加入一个 SVM 基线，用六项测量预测已有的正常或异常标签，供研究人员比较方法。请在方案 L、P、R、D 中选择一个，用间隔几何、支持向量、软间隔、核选择和未见记录的证据说明选择；若验证表现不足或适用条件改变，指出应暂缓或修改的具体原因。",
+  "problem_architecture": {
+    "overarching_problem": "脊柱生物力学研究组要在下一轮离线算法比较中加入一个 SVM 基线，用六项测量预测已有的正常或异常标签，供研究人员比较方法。请在方案 L、P、R、D 中选择一个，用间隔几何、支持向量、软间隔、核选择和未见记录的证据说明选择；若验证表现不足或适用条件改变，指出应暂缓或修改的具体原因。",
+    "downstream_use": "研究人员下一轮离线算法比较的SVM基线",
+    "decision_options": [
+      "L 采用线性核 SVM（边界是六维空间中的一个平面）：六项测量按训练集标准化，C 按“比较规则”中的选参规则选定后冻结。",
+      "P 采用二次多项式核 SVM（边界可以是二次曲面；核设置固定为次数2、常数项1、gamma=1/6）：同样标准化，C 按选参规则选定后冻结。",
+      "R 采用 RBF 核 SVM（边界可以随样本分布灵活弯曲）：同样标准化，C 与 gamma 按选参规则选定后冻结。",
+      "D 暂缓：本轮不把 SVM 纳入比较，写明缺少哪一项证据或需要怎样修改方案。"
+    ],
+    "inquiry_questions": [
+      {
+        "id": "Q1",
+        "question": "表 A2 的两条候选线都能分开六个样本：哪条更能容忍同样大小的扰动？表 A1 的脊柱变量能否直接套用这个结论？",
+        "objective_ids": [
+          "LO1",
+          "LO2"
+        ],
+        "concept_ids": [
+          "C1"
+        ],
+        "required_learning": [
+          "加权和、向量长度与垂直距离",
+          "规范化硬间隔与固定边界下的扰动保障"
+        ],
+        "student_action": "计算两条候选线的最小几何距离并检验重缩放不变性；说明扰动保障为何不能直接搬到量纲不同的脊柱变量。",
+        "evidence_ids": [
+          "表 A1",
+          "表 A2"
+        ],
+        "release_after": "A",
+        "minutes": 16,
+        "tracker_row": "T1 几何依据",
+        "student_output": "Q1 距离计算表、Q1 几何与现实表及 T1",
+        "contribution_to_synthesis": "说明偏好大间隔边界的几何依据及其泛化边界"
+      },
+      {
+        "id": "Q2",
+        "question": "表 B1 中移除不同样本后，边界为什么有时不变、有时移动？",
+        "objective_ids": [
+          "LO3"
+        ],
+        "concept_ids": [
+          "C2"
+        ],
+        "required_learning": [
+          "支持向量是训练样本，不是特征",
+          "边界只由支持向量决定"
+        ],
+        "student_action": "由边界位置和带宽推出间隔线，点名支持向量；比较两次移除；预测移除非支持向量的结果。",
+        "evidence_ids": [
+          "表 A2",
+          "表 B1"
+        ],
+        "release_after": "B",
+        "minutes": 10,
+        "tracker_row": "T2 关键样本",
+        "student_output": "Q2 支持向量表及 T2",
+        "contribution_to_synthesis": "解释所选方案依赖哪些训练记录"
+      },
+      {
+        "id": "Q3",
+        "question": "表 B2、图 B1 中改变 C，间隔宽度、违例与验证结果怎样变化？宽间隔能否直接支持“C 越小越好”？",
+        "objective_ids": [
+          "LO4"
+        ],
+        "concept_ids": [
+          "C3"
+        ],
+        "required_learning": [
+          "软间隔目标与合页损失",
+          "间隔违例与分类错误的区别"
+        ],
+        "student_action": "计算四个合页损失；比较 C 路径中的带宽、违例、支持向量与验证判对数，判断能否外推到脊柱数据。",
+        "evidence_ids": [
+          "图 S1",
+          "表 B2",
+          "图 B1"
+        ],
+        "release_after": "B",
+        "minutes": 15,
+        "tracker_row": "T3 容错权衡",
+        "student_output": "Q3 合页损失表、Q3 参数比较表及 T3",
+        "contribution_to_synthesis": "给出选 C 原则及其需要的验证证据"
+      },
+      {
+        "id": "Q4",
+        "question": "图 C1、表 C1 中三种核怎样改变二维边界？二次核为什么不必显式升维？",
+        "objective_ids": [
+          "LO5"
+        ],
+        "concept_ids": [
+          "C4"
+        ],
+        "required_learning": [
+          "内积、显式映射与核函数",
+          "RBF 相似度与 gamma"
+        ],
+        "student_action": "核验二次核与三维映射内积一致；比较三核边界；计算两种 gamma 下的 RBF 相似度。",
+        "evidence_ids": [
+          "图 C1",
+          "表 C1"
+        ],
+        "release_after": "C",
+        "minutes": 20,
+        "tracker_row": "T4 核的理由",
+        "student_output": "Q4 二次核计算表、三核比较表、gamma 与 C 表及 T4",
+        "contribution_to_synthesis": "用数学与图形说明何时值得选非线性核"
+      },
+      {
+        "id": "Q5",
+        "question": "表 C2、表 C3、图 C2 的脊柱验证结果足以冻结 L、P、R 中的哪一个？缩放、C 与 gamma 怎样改变判断？",
+        "objective_ids": [
+          "LO4",
+          "LO6"
+        ],
+        "concept_ids": [
+          "C3",
+          "C5"
+        ],
+        "required_learning": [
+          "训练内标准化",
+          "验证选参、测试隔离与平衡准确率"
+        ],
+        "student_action": "比较尺度对照、最宽带宽与大 gamma 的训练—验证差距，按合格条件逐核检查并冻结一个方案或暂缓。",
+        "evidence_ids": [
+          "表 S1",
+          "表 A1",
+          "表 C2",
+          "表 C3",
+          "图 C2"
+        ],
+        "release_after": "C",
+        "minutes": 18,
+        "tracker_row": "T5 冻结方案",
+        "student_output": "Q5 验证证据表及 T5",
+        "contribution_to_synthesis": "指定可复现的冻结方案而非泛泛推荐 SVM"
+      },
+      {
+        "id": "Q6",
+        "question": "表 D1、图 D1、表 D2：冻结方案能否保留？能迁移到哪些研究规模？",
+        "objective_ids": [
+          "LO2",
+          "LO7",
+          "LO8"
+        ],
+        "concept_ids": [
+          "C1",
+          "C6"
+        ],
+        "required_learning": [
+          "内部测试与几何稳健性不同",
+          "中小样本、高维、核计算代价和解释边界"
+        ],
+        "student_action": "计算冻结方案的两类召回率，区分平均表现与预测翻转；判断两种迁移场景；回答作业原题。",
+        "evidence_ids": [
+          "表 D1",
+          "图 D1",
+          "表 D2"
+        ],
+        "release_after": "D",
+        "minutes": 22,
+        "tracker_row": "T6 适用范围",
+        "student_output": "Q6 测试复核表、迁移判断表、作业原题及 T6",
+        "contribution_to_synthesis": "限制适用范围并整合所有核心概念"
+      }
+    ]
+  },
+  "course_coverage": [
+    {
+      "objective_id": "LO1",
+      "concept_cluster_ids": [
+        "C1"
+      ],
+      "inquiry_question_ids": [
+        "Q1"
+      ],
+      "analysis_ids": [
+        "A1"
+      ],
+      "required_learning": [
+        "加权和、向量长度与垂直距离",
+        "规范化硬间隔与固定边界下的扰动保障"
+      ],
+      "student_output": "Q1 距离计算表、Q1 几何与现实表及 T1",
+      "worksheet_location": "Phase 2 Q1",
+      "synthesis_use": "说明偏好大间隔边界的几何依据及其泛化边界",
+      "assessment_evidence": "写出线性得分 f(x)=wᵀx+b，说明分类超平面 f(x)=0 的含义，并计算样本到超平面的几何距离。"
+    },
+    {
+      "objective_id": "LO2",
+      "concept_cluster_ids": [
+        "C1",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q1",
+        "Q6"
+      ],
+      "analysis_ids": [
+        "A1",
+        "A6"
+      ],
+      "required_learning": [
+        "加权和、向量长度与垂直距离",
+        "规范化硬间隔与固定边界下的扰动保障",
+        "内部测试与几何稳健性不同",
+        "中小样本、高维、核计算代价和解释边界"
+      ],
+      "student_output": "Q1 距离计算表、Q1 几何与现实表及 T1；Q6 测试复核表、迁移判断表、作业原题及 T6",
+      "worksheet_location": "Phase 2 Q1 / Phase 2 Q6",
+      "synthesis_use": "说明偏好大间隔边界的几何依据及其泛化边界；限制适用范围并整合所有核心概念",
+      "assessment_evidence": "用几何间隔解释“最大化间隔为什么可能有助于泛化”，并说明它只保护已有样本免受小扰动，不保证新样本的准确率。"
+    },
+    {
+      "objective_id": "LO3",
+      "concept_cluster_ids": [
+        "C2"
+      ],
+      "inquiry_question_ids": [
+        "Q2"
+      ],
+      "analysis_ids": [
+        "A2"
+      ],
+      "required_learning": [
+        "支持向量是训练样本，不是特征",
+        "边界只由支持向量决定"
+      ],
+      "student_output": "Q2 支持向量表及 T2",
+      "worksheet_location": "Phase 2 Q2",
+      "synthesis_use": "解释所选方案依赖哪些训练记录",
+      "assessment_evidence": "从移除试验和边界图中识别支持向量，说明为什么只有支持向量决定边界。"
+    },
+    {
+      "objective_id": "LO4",
+      "concept_cluster_ids": [
+        "C3",
+        "C5"
+      ],
+      "inquiry_question_ids": [
+        "Q3",
+        "Q5"
+      ],
+      "analysis_ids": [
+        "A3",
+        "A5"
+      ],
+      "required_learning": [
+        "软间隔目标与合页损失",
+        "间隔违例与分类错误的区别",
+        "训练内标准化",
+        "验证选参、测试隔离与平衡准确率"
+      ],
+      "student_output": "Q3 合页损失表、Q3 参数比较表及 T3；Q5 验证证据表及 T5",
+      "worksheet_location": "Phase 2 Q3 / Phase 2 Q5",
+      "synthesis_use": "给出选 C 原则及其需要的验证证据；指定可复现的冻结方案而非泛泛推荐 SVM",
+      "assessment_evidence": "计算合页损失，区分间隔违例与分类错误，用证据说明 C 怎样在间隔宽度与违例之间权衡。"
+    },
+    {
+      "objective_id": "LO5",
+      "concept_cluster_ids": [
+        "C4"
+      ],
+      "inquiry_question_ids": [
+        "Q4"
+      ],
+      "analysis_ids": [
+        "A4"
+      ],
+      "required_learning": [
+        "内积、显式映射与核函数",
+        "RBF 相似度与 gamma"
+      ],
+      "student_output": "Q4 二次核计算表、三核比较表、gamma 与 C 表及 T4",
+      "worksheet_location": "Phase 2 Q4",
+      "synthesis_use": "用数学与图形说明何时值得选非线性核",
+      "assessment_evidence": "用内积与特征映射解释核技巧，比较线性、多项式和 RBF 核的边界，区分 gamma 与 C 的作用。"
+    },
+    {
+      "objective_id": "LO6",
+      "concept_cluster_ids": [
+        "C3",
+        "C5"
+      ],
+      "inquiry_question_ids": [
+        "Q5"
+      ],
+      "analysis_ids": [
+        "A5"
+      ],
+      "required_learning": [
+        "训练内标准化",
+        "验证选参、测试隔离与平衡准确率"
+      ],
+      "student_output": "Q5 验证证据表及 T5",
+      "worksheet_location": "Phase 2 Q5",
+      "synthesis_use": "指定可复现的冻结方案而非泛泛推荐 SVM",
+      "assessment_evidence": "在训练内标准化、验证选参、测试隔离的流程中说明参数敏感，并冻结一个可复现的方案。"
+    },
+    {
+      "objective_id": "LO7",
+      "concept_cluster_ids": [
+        "C1",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "analysis_ids": [
+        "A6"
+      ],
+      "required_learning": [
+        "内部测试与几何稳健性不同",
+        "中小样本、高维、核计算代价和解释边界"
+      ],
+      "student_output": "Q6 测试复核表、迁移判断表、作业原题及 T6",
+      "worksheet_location": "Phase 2 Q6",
+      "synthesis_use": "限制适用范围并整合所有核心概念",
+      "assessment_evidence": "判断 SVM 在中小样本、高维和大样本研究中的适用性，并说明它的可解释性局限。"
+    },
+    {
+      "objective_id": "LO8",
+      "concept_cluster_ids": [
+        "C1",
+        "C6"
+      ],
+      "inquiry_question_ids": [
+        "Q6"
+      ],
+      "analysis_ids": [
+        "A6"
+      ],
+      "required_learning": [
+        "内部测试与几何稳健性不同",
+        "中小样本、高维、核计算代价和解释边界"
+      ],
+      "student_output": "Q6 测试复核表、迁移判断表、作业原题及 T6",
+      "worksheet_location": "Phase 2 Q6",
+      "synthesis_use": "限制适用范围并整合所有核心概念；研究备忘录引用 Q6 作业原题",
+      "assessment_evidence": "用自己的话解释“为什么 SVM 不是简单地找一条‘刚好分开两类’的线”（本讲作业原题）。"
+    }
+  ],
+  "customized": true,
+  "course_brief": [
+    "plan.md",
+    "svm.md",
+    "../../../plan.docx"
+  ],
+  "analysis_design": "assets/pbl-svm-margin/analysis-design.json",
+  "build_script": "scripts/pbl-svm-margin-build.py",
+  "qa": {
+    "lint": "review/pbl-svm-margin-lint.md",
+    "design": "review/pbl-svm-margin-design-check.md",
+    "pilot_fields": "review/pilot-fields.json",
+    "pilot_fill": "review/pbl-svm-margin-pilot-fill.docx",
+    "pilot_report": "review/pbl-svm-margin-pilot-report.md",
+    "takeover_audit": "review/takeover-gap-audit.md",
+    "status": "passed",
+    "verification": "review/release-verification.json",
+    "visual": "review/visual-qa.md",
+    "independence": "self-pilot",
+    "student_fields": 156,
+    "pilot_blocking": 0,
+    "pilot_friction": 2,
+    "executed_notebook_cells": 13
+  },
+  "student_release": [
+    "student-release/01-启动与追踪表.docx",
+    "student-release/02-Packet-A.docx",
+    "student-release/03-Packet-B.docx",
+    "student-release/04-Packet-C.docx",
+    "student-release/05-Packet-D与综合.docx",
+    "student-release/06-翻转课堂与入口.docx"
+  ],
+  "archive": "planning/archive-v0-gpt-draft-20260918/"
+}

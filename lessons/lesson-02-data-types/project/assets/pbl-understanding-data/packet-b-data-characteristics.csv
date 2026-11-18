@@ -1,0 +1,3 @@
+﻿dataset,rows,features,dimensionality,sparsity,resolution,approx_bytes,implication
+Heart Disease,920,14,mixed; moderately low-dimensional,binary flags include many zeros,patient-level; four historical sites,74149,quality and mixed-type workflow
+WDBC,569,30,numeric; feature redundancy,exact zero fraction 0.005,image-derived nucleus summaries,136692,PCA and feature selection; 21 pairs |r|>0.90

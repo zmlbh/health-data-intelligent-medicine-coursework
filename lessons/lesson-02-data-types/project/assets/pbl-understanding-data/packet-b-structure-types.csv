@@ -1,0 +1,7 @@
+﻿structure,biomedical_example,object,analysis_consequence
+record data,patient × clinical variables,one patient record,row independence provenance and mixed scales
+matrix data,sample × gene expression,one biospecimen,high dimension sparsity and batch structure
+document data,clinical note × terms or embeddings,one note,tokenization frequency and note-to-patient linkage
+transaction data,patient encounter × codes present,one encounter set,presence may matter more than joint absence
+graph data,protein interaction network,node or edge,relationships violate an independent-row view
+ordered data,longitudinal measurements or sequence,time point within a subject,order spacing and repeated-subject dependence

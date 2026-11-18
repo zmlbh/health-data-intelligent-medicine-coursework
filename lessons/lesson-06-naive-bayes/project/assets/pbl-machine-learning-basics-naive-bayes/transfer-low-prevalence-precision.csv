@@ -1,0 +1,2 @@
+prevalence,sensitivity,specificity,precision_ppv,false_positive_share_among_positive_predictions
+0.01,0.95,0.95,0.16101694915254225,0.8389830508474577

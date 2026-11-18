@@ -1,0 +1,13 @@
+{
+  "topic": "线性模型、LDA 与 Logistic Regression",
+  "slug": "linear-models-lda-logistic-regression",
+  "dataset": "UCI Statlog (Heart)",
+  "source_page": "https://archive.ics.uci.edu/dataset/145/statlog%2Bheart",
+  "license": "CC BY 4.0",
+  "target": "heart_disease_present (1=presence, 0=absence)",
+  "split": "80% development / 20% locked test, stratified, random_state=2026",
+  "preprocessing": "continuous standardized and categorical one-hot encoded inside each pipeline",
+  "development_validation": "5-fold repeated stratified CV; threshold selected using development OOF predictions",
+  "decision_cost": "5 * false negatives + 1 * false positives",
+  "boundary": "Teaching benchmark only; no clinical, causal, deployment, or patient-care claim."
+}

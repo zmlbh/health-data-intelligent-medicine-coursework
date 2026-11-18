@@ -1,0 +1,7 @@
+﻿microcase_variable,example_values,measurement_scale,reason,analysis_consequence
+collection_site,A B C,nominal,different labels without order,counts and stratification
+disease_stage,I II III IV,ordinal,ordered but gaps are not assumed equal,ordered summaries or ordinal model
+calendar_year,2018 2019 2020,interval,differences are meaningful but year zero is arbitrary,differences and trends not meaningful ratios
+age_years,20 40 60,ratio,differences and a meaningful zero support ratios with context,numeric summaries after distribution check
+mutation_count,0 1 2 3,discrete ratio,counted integer events,count distribution or justified transformation
+blood_pressure,continuous measurement,continuous ratio,measured on a continuum within instrument resolution,numeric summaries and scale-aware distance

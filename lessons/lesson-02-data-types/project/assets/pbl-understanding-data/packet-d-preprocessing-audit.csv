@@ -1,0 +1,4 @@
+﻿workflow,operation,information_used,diagnosis,decision
+A,"impute and scale on all 920 records, then split",uses future test distribution,leakage,reject
+B,split first; fit imputation and scaling on training records; apply fixed parameters to test,test records do not set parameters,valid teaching workflow,retain
+test standardized mean check,global-fit vs train-fit,global age mean -0.062; train-fit age mean -0.088,a near-zero global test mean can be partly engineered by leakage,interpret with split provenance

@@ -1,0 +1,2 @@
+threshold,accuracy,sensitivity_recall,specificity,precision,f1,roc_auc,pr_auc,brier,log_loss
+0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.01264120822588853,0.07449229980495913

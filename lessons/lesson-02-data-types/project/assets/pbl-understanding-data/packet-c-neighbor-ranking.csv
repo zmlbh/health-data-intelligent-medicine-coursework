@@ -1,0 +1,19 @@
+﻿anchor,metric_preprocessing,rank,neighbor,neighbor_site,distance
+Cleveland-001,Euclidean raw,1,VA-Long-Beach-082,VA Long Beach,8.573
+Cleveland-001,Euclidean raw,2,Cleveland-031,Cleveland,9.912
+Cleveland-001,Euclidean raw,3,VA-Long-Beach-004,VA Long Beach,9.952
+Cleveland-001,Euclidean raw,4,Cleveland-244,Cleveland,12.292
+Cleveland-001,Euclidean raw,5,Cleveland-210,Cleveland,12.799
+Cleveland-001,Euclidean raw,6,Cleveland-034,Cleveland,15.532
+Cleveland-001,Euclidean standardized,1,Cleveland-098,Cleveland,0.621
+Cleveland-001,Euclidean standardized,2,VA-Long-Beach-082,VA Long Beach,0.706
+Cleveland-001,Euclidean standardized,3,VA-Long-Beach-147,VA Long Beach,0.708
+Cleveland-001,Euclidean standardized,4,Cleveland-244,Cleveland,0.722
+Cleveland-001,Euclidean standardized,5,Cleveland-271,Cleveland,0.739
+Cleveland-001,Euclidean standardized,6,Cleveland-190,Cleveland,0.789
+Cleveland-001,Manhattan standardized,1,VA-Long-Beach-082,VA Long Beach,1.081
+Cleveland-001,Manhattan standardized,2,VA-Long-Beach-004,VA Long Beach,1.287
+Cleveland-001,Manhattan standardized,3,Cleveland-175,Cleveland,1.299
+Cleveland-001,Manhattan standardized,4,Cleveland-244,Cleveland,1.301
+Cleveland-001,Manhattan standardized,5,Cleveland-098,Cleveland,1.381
+Cleveland-001,Manhattan standardized,6,Cleveland-031,Cleveland,1.476

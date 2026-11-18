@@ -1,0 +1,3 @@
+model,accuracy,cross_entropy_log_loss,probability_on_wrong_case
+A: cautious wrong prediction,0.75,0.40945934673894957,0.6
+B: overconfident wrong prediction,0.75,1.3316792102674335,0.99

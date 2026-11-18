@@ -1,0 +1,2 @@
+fever_ge_38,nausea,lumbar_pain,urine_pushing,micturition_pains,burning_urethra,manual_posterior_y1,sklearn_posterior_y1,absolute_difference,threshold,predicted_class
+0,1,1,0,1,1,0.37547026971755376,0.3754702697175539,1.1102230246251565e-16,0.5,0

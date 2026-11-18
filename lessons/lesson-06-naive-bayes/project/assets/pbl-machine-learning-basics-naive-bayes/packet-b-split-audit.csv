@@ -1,0 +1,4 @@
+split,n,positive_n,positive_rate,overlap_with_other_splits,role
+train,72,35,0.4861111111111111,0,fit parameters
+validation,24,12,0.5,0,select/check
+locked test,24,12,0.5,0,one final estimate

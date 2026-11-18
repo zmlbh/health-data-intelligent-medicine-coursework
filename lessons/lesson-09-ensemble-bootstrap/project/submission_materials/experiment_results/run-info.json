@@ -1,0 +1,8 @@
+{
+  "data": "ctg",
+  "label": "pathologic",
+  "group": "recording_id",
+  "seed": 1010,
+  "n_train": 1279,
+  "n_validation": 424
+}

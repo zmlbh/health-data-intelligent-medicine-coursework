@@ -1,0 +1,3 @@
+﻿dataset,role,observation_unit,rows,feature_or_metadata_columns,target,target_distribution,missing_cells,source,license_note
+UCI Heart Disease four-site teaching table,primary,one historical patient record,920,14,num 0-4; teaching binary view num>0,0:411; 1:265; 2:109; 3:107; 4:28,1759,UCI Heart Disease DOI 10.24432/C52P4X,CC BY 4.0 recorded in course source metadata
+Breast Cancer Wisconsin Diagnostic,supporting,one digitized FNA sample,569,30,diagnosis_target 0 malignant 1 benign,malignant:212; benign:357,0,UCI WDBC; bundled in scikit-learn,Attribution included; recheck current UCI terms before external redistribution
