@@ -9,6 +9,16 @@
 3. 每节课的 `assignment/` 保存最终提交版本；`project/` 保存相关代码、notebook、数据、说明和结果。
 4. 若某项目包含 `requirements.txt`，请先创建独立 Python 环境，再执行 `pip install -r requirements.txt`。
 
+## 一条命令完成仓库验收
+
+在仓库根目录运行：
+
+```bash
+python tools/audit_repository.py
+```
+
+该命令只使用 Python 标准库，检查每课的作业、代码、数据和输出，并重新生成 `outputs/repository-audit.csv`。详细复现入口见 `REPRODUCIBILITY.md`，结论与文件之间的对应关系见 `EVIDENCE_MAP.md`。
+
 ## 课程结构
 
 ```text
@@ -24,6 +34,9 @@ lessons/
   lesson-08-svm/                          # SVM 与 Margin
   lesson-09-ensemble-bootstrap/           # 集成学习与 Bootstrapping
 AI_CONVERSATION_RECORDS.md                # 历史 AI 对话记录的补充说明
+REPRODUCIBILITY.md                        # 环境与复现命令
+EVIDENCE_MAP.md                           # 作业、数据、代码和输出的对应关系
+LIMITATIONS.md                            # 已知限制与下一步
 EXCLUDED_FROM_PUBLIC_REPOSITORY.txt       # 未公开的缓存、渲染文件和超大文件清单
 ```
 
@@ -32,3 +45,11 @@ EXCLUDED_FROM_PUBLIC_REPOSITORY.txt       # 未公开的缓存、渲染文件和
 本仓库仅包含课程作业中已经提供的公开或教学用途材料。为避免泄露不应公开的内容，未纳入虚拟环境、缓存、运行日志、临时渲染目录和超过 50 MB 的文件。数据使用条件、版本信息和字段说明以各项目内的 README 或数据说明为准。
 
 历史 AI 对话原文未随本次材料一并提供，因此本仓库不会虚构或伪造对话记录。提交前请按照 `AI_CONVERSATION_RECORDS.md` 补入各课实际使用的 AI 对话导出或共享链接。
+
+## 验收状态
+
+- 可复现：根目录命令可生成一张 CSV 验收表；各课已有运行入口在 `REPRODUCIBILITY.md` 中列出。
+- 可追溯：`EVIDENCE_MAP.md` 将最终作业连接到数据、代码和输出。
+- 可审阅：缓存、虚拟环境、密钥类文件和临时渲染目录已排除。
+- 版本化：Git 历史按“初始整理、证据链说明、自动验收与边界”分阶段提交。
+- 边界诚实：未完成课程、缺失的历史 AI 对话及未逐一重跑的分析均在 `LIMITATIONS.md` 中说明。

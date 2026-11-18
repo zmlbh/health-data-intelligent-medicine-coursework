@@ -1,0 +1,43 @@
+# RAW
+records: 920
+disease=1: 509  disease=0: 411
+thalach missing: 55
+missing by group: disease=1 -> 35  disease=0 -> 20
+
+# THALACH BY GROUP (analysis sample n=865)
+disease=1: n=474 mean=128.26 sd=24.02 median=128.0 IQR=[112.0,145.0]
+disease=0: n=391 mean=148.80 sd=23.61 median=151.0 IQR=[134.5,167.5]
+
+# WELCH T-TEST (two-sided)
+mean diff (disease1 - disease0) = -20.54
+SE = 1.626
+t = -12.633  df = 837.18  p = 1.302e-33
+95%% CI = [-23.73, -17.35]
+Cohen's d = -0.862
+
+# MANN-WHITNEY U (robustness)
+U = 49781.0  p = 9.026e-32
+
+# SEX x DISEASE (all records with disease; sex present)
+table [[female0,female1],[male0,male1]] = [[144, 50], [267, 459]]
+chi2 = 85.361  dof = 1  p = 2.485e-20
+
+# AGE vs THALACH
+Pearson r = -0.366  p = 8.933e-29
+Spearman rho = -0.348  p = 4.444e-26
+
+# LOGISTIC REGRESSION disease ~ age + sex + thalach
+intercept: beta=0.5564 SE=0.8011 OR=1.7443 95%CI=[0.3628,8.3853] z=0.695 p=4.874e-01
+age: beta=0.0458 SE=0.0091 OR=1.0468 95%CI=[1.0283,1.0657] z=5.023 p=5.094e-07
+sex(male): beta=1.4855 SE=0.1975 OR=4.4172 95%CI=[2.9992,6.5056] z=7.521 p=5.462e-14
+thalach: beta=-0.0285 SE=0.0035 OR=0.9719 95%CI=[0.9652,0.9787] z=-8.071 p=6.661e-16
+
+# MULTIPLE COMPARISON
+1 - 0.95^20 = 0.6415
+Bonferroni alpha = 0.05/20 = 0.0025
+
+# SITE (disease, no-disease)
+Cleveland: 139 / 164
+Hungary: 106 / 188
+Switzerland: 115 / 8
+VA Long Beach: 149 / 51
